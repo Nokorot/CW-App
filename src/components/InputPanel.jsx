@@ -10,7 +10,14 @@ export default function InputPanel({ states, children }) {
                   key={`${i}`}
                 >
                   <span>{v[2]}</span>
-                  <input type="number" value={v[0]} onChange={(e) => v[1](e.target.value)} />
+                  <input
+                    type="number"
+                    onBeforeInput={(e) => {
+                      if (!/^[0-9.,-]*$/.test(e.data)) {
+                        e.preventDefault();
+                      }
+                    }}
+                    value={v[0]} onChange={(e) => v[1](e.target.value)} />
                 </label>
               );
             })}

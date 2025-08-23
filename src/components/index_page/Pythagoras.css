@@ -47,3 +47,36 @@
   writing-mode: vertical-rl;
   glyph-orientation-vertical: 0;
 }
+
+
+
+/* Smaller label row with a right-aligned 'Locked' chip */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field__label { display: flex; align-items: center; gap: 8px; color: #333; font-size: 14px; }
+
+/* Computed fields: grey and non-interactive */
+.field--locked input {
+  background: #ddd;
+  color: #666;
+  border-color: #ddd;
+  cursor: pointer;
+}
+
+.field--locked input:hover   { background: #f1f1f1; }
+
+.field--locked button {
+  background: #ccc;
+  color: #666;
+  border-color: #ddd;
+}
+
+/* Clear button styling to match inputs */
+.field--clear .clear-btn {
+  height: 100%;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  cursor: pointer;
+}
+.field--clear .clear-btn:hover { background: #f2f2f2; }
