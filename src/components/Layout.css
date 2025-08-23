@@ -1,0 +1,92 @@
+body {
+  background-color: #d9ead3;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  overflow: auto;
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  background: #D8B9A4;
+  padding: 0px;
+}
+
+img.header-logo {
+  height: 80px;
+  padding: 10px;
+}
+
+.header-menu {
+  float: right;
+  height: 100%;
+}
+
+.header-title {
+  position: relative;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+img.user-icon {
+  height: 100%;
+  border-radius: 50%;
+}
+
+.header .dropdown-user {
+  margin: 5px;
+  padding: 5px;
+  float: right;
+  display: inline-block;
+  height: 70px;
+}
+
+.dropdown-user .dropdown-content {
+  right: 10px;
+}
+
+.dropdown-content {
+  border-radius: 10px;
+  position: absolute;
+  background-color: #c94d6c;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.logout-button {
+  background-color: #f35e28;
+  color: white;
+  position: relative;
+}
+
+.logout-button:hover {
+  background-color: rgb(4, 32, 50);
+}
+
+.login-button {
+  background-color: #17f783;
+  color: white;
+  margin-top: 22px;
+}
+
+.login-button:hover {
+  background-color: rgb(239, 245, 249);
+}
+
+.page-container {
+  margin: 20px;
+}

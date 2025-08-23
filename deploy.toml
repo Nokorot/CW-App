@@ -1,0 +1,31 @@
+# Server connection defaults
+[server]
+user = "noko"
+host = "web.torhgjone.no"
+ssh_port = 22
+nginx_service_name = "nginx.service"
+
+# Frontend settings
+[frontend]
+dir = "."
+local_build_dir = "./build"
+remote_path = "/srv/cw_app"
+
+# [frontend.env.production]
+# REACT_APP_API_BASE_URL = "/api"
+# REACT_APP_API_BASE_URL = "https://app.neslegaarden.no/api"
+
+# Backend settings
+## [backend]
+## # local path that contains pyproject.toml
+## src_dir = "backend"
+## # remote project root (systemd WorkingDirectory)
+## remote_path = "/srv/nettle-app/fastapi-back"
+## # systemd service name to restart after sync
+## service_name = "fastapi-back"
+## # remote venv (created if missing)
+## venv_path = "/srv/nettle-app/fastapi-back/.venv"
+## # command(s) run on the server after rsync to install deps
+## # uv is great here; you can swap for pip if you prefer
+## post_sync = "uv sync --frozen"
+##
