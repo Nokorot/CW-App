@@ -46,7 +46,9 @@ function IndexPage() {
       return (<div> Invalid Page state "{viewState.type}" </div> );
   }
 
-  return (<Layout topBarWidget={topBarWidget} /* flash={flash} */>
+  return (<Layout
+    pageContext={pageContext}
+    topBarWidget={topBarWidget} /* flash={flash} */>
     { pgContainer }
   </Layout>);
 }

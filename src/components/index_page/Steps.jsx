@@ -36,8 +36,6 @@ export default function StepsPC({pageContext}) {
     return arr;
   }, [x0, x1, steps]);
 
-  console.log(values);
-
 
   const [lastPicked, setLastPicked] = useState(null); // for future mem-list UX
 

@@ -89,4 +89,5 @@ img.user-icon {
 
 .page-container {
   margin: 20px;
+  overscroll-behavior: contain;  /* avoid page pull-to-refresh bounce on mobile */
 }

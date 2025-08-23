@@ -1,0 +1,50 @@
+
+/* Scrollable results area */
+.results-wrap {
+  flex: 1;                    /* take remaining height */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;  /* avoid page pull-to-refresh bounce on mobile */
+  padding-top: 12px;
+}
+
+/* Result list */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  align-items: start;
+}
+
+.result-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: #f8f8f8;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+.result-chip:hover   { background: #f1f1f1; }
+.result-chip:active  { transform: translateY(1px); }
+.result-chip:focus-visible {
+  outline: 2px solid #7aa7ff;
+  outline-offset: 2px;
+  border-color: #7aa7ff;
+}
+
+/* Make long numeric strings wrap nicely *inside* the chip if needed */
+.result-chip code {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+

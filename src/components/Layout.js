@@ -1,7 +1,7 @@
 
 import TopBar from "./TopBar";
 
-function Layout({ topBarWidget, children }) {
+function Layout({ topBarWidget, pageContext, children }) {
   const title = "Construction Work App"
 
   return (
@@ -12,7 +12,7 @@ function Layout({ topBarWidget, children }) {
       {/* <link rel="stylesheet" href="/styles.css" /> */}
       <title>{ title }</title>
 
-      <TopBar widget={ topBarWidget }/>
+      <TopBar pageContext={pageContext} widget={topBarWidget}/>
 
       <div className="page-container">
         {children}
