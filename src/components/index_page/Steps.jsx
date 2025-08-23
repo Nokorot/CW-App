@@ -45,12 +45,6 @@ export default function StepsPC({pageContext}) {
 
   const fmt = (v) => (Number.isInteger(v) ? String(v) : v.toPrecision(3).replace(/\.?0+$/, ""));
 
-  useEffect(() => {
-    pageContext.setTopBarWidget(
-      <h2 >Linear Steps</h2>
-    );
-  }, []);
-
   return (
     <div className="lerp-page">
         <InputPanel

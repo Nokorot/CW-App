@@ -1,0 +1,49 @@
+
+/* Small additions specific to the triangle page */
+.tri-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 12px;
+}
+
+.tri-svg {
+  width: min(560px, 100%);
+  height: auto;
+}
+
+.side {
+  stroke: #333;
+  stroke-width: 3;
+}
+
+.side.unknown {
+  stroke: #2f6fed; /* highlight the unknown being solved */
+}
+
+
+.side-label-box rect {
+  fill: #f8f8f8;
+  stroke: #ccc;
+  stroke-width: 1;
+  cursor: pointer;
+}
+
+.side-label-box:hover rect {
+  fill: #eee;
+}
+
+.side-label-box:active rect {
+  fill: #ddd;
+}
+
+.side-label-box text {
+  font: 12px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  fill: #333;
+  pointer-events: none;
+}
+
+
+.side-label text.rotate {
+  writing-mode: vertical-rl;
+  glyph-orientation-vertical: 0;
+}

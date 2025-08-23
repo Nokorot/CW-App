@@ -53,13 +53,14 @@ const TopBar = ({ pageContext, widget }) => {
   }, [menuState]);
 
 
-  const setViewState = (page) => {
-    pageContext.setViewState({type: page});
+  const setViewState = (view) => {
+    pageContext.setViewState(view);
     closeMenu();
   }
 
-
-
+  const isActive = (view) => {
+    return view.type == pageContext.currentView.type;
+  }
 
   return (
     <div className="top-bar">
@@ -117,18 +118,36 @@ const TopBar = ({ pageContext, widget }) => {
             aria-modal="true"
             aria-label="Options"
           >
-            <button
-              className={`option-item`}
-              onClick={() => setViewState("lerp")}
-            >
-              Linear Spacing
-            </button>
-            <button
-              className={`option-item`}
-              onClick={() => setViewState("steps")}
-            >
-              Step Spacing
-            </button>
+
+            {Object.keys(pageContext.viewStates).map(key => {
+              var view = pageContext.viewStates[key];
+
+              if (!view.topBarMenu)
+                return;
+
+              console.log(view);
+
+              return (<button
+                  className={`option-item ${isActive(view) ? "active" : ""}`}
+                  onClick={() => setViewState(view)}
+                >
+                { view.title }
+              </button>);
+            })}
+
+            { // <button
+            //   className={`option-item`}
+            //   onClick={() => setViewState("lerp")}
+            // >
+            //   Linear Spacing
+            // </button>
+            // <button
+            //   className={`option-item`}
+            //   onClick={() => setViewState("steps")}
+            // >
+            //   Step Spacing
+            // </button>
+              }
 
             {/* Add more pages here later */}
             {/* <button className="option-item" onClick={() => go("/something")}>Something</button> */}

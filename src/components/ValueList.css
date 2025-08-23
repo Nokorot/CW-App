@@ -5,23 +5,22 @@
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;  /* avoid page pull-to-refresh bounce on mobile */
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 /* Result list */
 .result-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 8px;
-  align-items: start;
+  grid-template-columns: 1fr;
+  gap: 4px;
 }
 
 .result-chip {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 12px;
-  border-radius: 999px;
+  padding: 6px 10px;
+  border-radius: 6px;
   border: 1px solid #ddd;
   background: #f8f8f8;
   cursor: pointer;

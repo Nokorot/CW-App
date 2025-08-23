@@ -4,7 +4,7 @@ import "./Lerp.css"
 import InputPanel from "../InputPanel";
 import ValueList from "../ValueList";
 
-export default function LerpPageContainer({pageContext}) {
+export default function LerpPC({pageContext}) {
   var states = [];
 
   const [x0, setX0] = useState("2.5");
@@ -48,11 +48,6 @@ export default function LerpPageContainer({pageContext}) {
 
   const fmt = (v) => (Number.isInteger(v) ? String(v) : v.toPrecision(3).replace(/\.?0+$/, ""));
 
-  useEffect(() => {
-    pageContext.setTopBarWidget(
-      <h2 >Linear Spacing</h2>
-    );
-  }, []);
 
   return (
     <div className="lerp-page">
