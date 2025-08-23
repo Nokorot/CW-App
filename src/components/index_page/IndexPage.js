@@ -1,13 +1,14 @@
 
 import HomePageContainer from "./Home";
 import LerpPageContainer from "./Lerp";
+import StepsPC from "./Steps";
 import Layout from "../Layout";
 
 import { useState } from "react";
 
 function IndexPage() {
 
-  var initViewState = { type: 'lerp' };
+  var initViewState = { type: 'steps' };
   const [viewState, setViewState] = useState(initViewState);
 
   const [ topBarWidget, setTopBarWidget] = useState(null);
@@ -27,6 +28,10 @@ function IndexPage() {
 
     case 'lerp':
       pgContainer = (<LerpPageContainer
+        pageContext={pageContext}
+      />); break;
+    case 'steps':
+      pgContainer = (<StepsPC
         pageContext={pageContext}
       />); break;
 
