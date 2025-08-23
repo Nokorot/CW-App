@@ -37,6 +37,14 @@
   border: 2px solid #fff;
 }
 
+.top-bar-widget h2 {
+  margin-bottom: 12px;
+  white-space: nowrap;       /* prevent wrapping */
+  overflow: hidden;          /* hide anything that overflows */
+  text-overflow: ellipsis;       /* cut off instead of wrapping */
+  box-sizing: border-box; /* padding/border stay inside width */
+}
+
 
 
 /*

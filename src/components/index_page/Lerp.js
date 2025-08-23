@@ -1,11 +1,15 @@
+// vim: set ft=javascriptreact
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import "./Lerp.css"
 
 // InterpolationCalc
-export default function LerpPageContainer() {
+export default function LerpPageContainer({pageContext}) {
   const [x0, setX0] = useState("0");
   const [x1, setX1] = useState("10");
   const [steps, setSteps] = useState("5");
+
+  const [lastPicked, setLastPicked] = useState(null); // for future mem-list UX
 
   const parsed = {
     x0: parseFloat(x0),
@@ -30,69 +34,92 @@ export default function LerpPageContainer() {
   const hasError =
     Number.isNaN(parsed.x0) || Number.isNaN(parsed.x1) || !Number.isFinite(parsed.n);
 
+  // For the future: this is where you'd add to a memory list.
+  // For now we just store which value was clicked.
+  const handlePick = (value) => {
+    setLastPicked(value);
+    // TODO: push to mem-list state and expose it in a side panel / dropdowns
+  };
+
+
+           // {Number.isInteger(v) ? v : v.toPrecision(12).replace(/\.?0+$/, "")}
+
+  const fmt = (v) => (Number.isInteger(v) ? String(v) : v.toPrecision(3).replace(/\.?0+$/, ""));
+
+
+  useEffect(() => {
+    pageContext.setTopBarWidget(
+      <h2 >Linear Spacing</h2>
+    );
+  }, []);
+
   return (
-    <div style={{ maxWidth: 560, margin: "24px auto", fontFamily: "system-ui, sans-serif" }}>
-    {/* <h2>Linear Interpolation Calculator</h2> */}
-      <h2 style={{ marginBottom: 12 }}>Linear Spaceing</h2>
+    <div className="lerp-page">
+      <div className="striky-block">
+        { /* <h2 >Linear Spacing</h2> */}
+        <div className="input-panel">
+          <label>
+            <span>Start (x0)</span>
+            <input type="number" value={x0} onChange={(e) => setX0(e.target.value)} />
+          </label>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
-        <label style={labelStyle}>
-          <span>Start (x0)</span>
-          <input type="number" value={x0} onChange={(e) => setX0(e.target.value)} style={inputStyle} />
-        </label>
+          <label>
+            <span>End (x1)</span>
+            <input type="number" value={x1} onChange={(e) => setX1(e.target.value)} />
+          </label>
 
-        <label style={labelStyle}>
-          <span>End (x1)</span>
-          <input type="number" value={x1} onChange={(e) => setX1(e.target.value)} style={inputStyle} />
-        </label>
-
-        <label style={labelStyle}>
-          <span>Steps / Samples (y0)</span>
-          <input
-            type="number"
-            inputMode="numeric"
-            min={1}
-            step={1}
-            value={steps}
-            onChange={(e) => setSteps(e.target.value)}
-            style={inputStyle}
-          />
-        </label>
+          <label>
+            <span>Steps / Samples (y0)</span>
+            <input
+              type="number"
+              inputMode="numeric"
+              min={1}
+              step={1}
+              value={steps}
+              onChange={(e) => setSteps(e.target.value)}
+            />
+          </label>
+        </div>
       </div>
 
       {hasError ? (
-        <p style={{ color: "#c00", marginTop: 12 }}>
+        <p className="user-err-msg">
           Enter valid numbers. “Steps” should be an integer ≥ 1.
         </p>
       ) : (
         <>
-          <p style={{ marginTop: 12, color: "#555" }}>
-            Generated {values.length} value{values.length === 1 ? "" : "s"} from x0 to x1 (inclusive).
+          <p className="user-msg">
+        {/* Generated {values.length} value{values.length === 1 ? "" : "s"} from x0 to x1 (inclusive). */}
+
+            Generated {values.length} value{values.length === 1 ? "" : "s"} from x0 to x1 (inclusive)
+            {lastPicked != null ? ` • last picked: ${fmt(lastPicked)}` : ""}
+            .
           </p>
-          <ul style={{ marginTop: 8, paddingLeft: 18, lineHeight: 1.6 }}>
-            {values.map((v, i) => (
-              <li key={i}>
-                <code>#{i}</code> → {Number.isInteger(v) ? v : v.toPrecision(12).replace(/\.?0+$/, "")}
-              </li>
-            ))}
-          </ul>
         </>
       )}
+
+      {/* Only this area scrolls */}
+      <div className="results-wrap" role="region" aria-label="Results">
+        {!hasError && (
+          <div className="result-grid">
+            {values.map((v, i) => {
+              const label = fmt(v);
+              return (
+                <button
+                  key={`${i}-${label}`}
+                  type="button"
+                  className="result-chip"
+                  onClick={() => handlePick(v)}
+                  aria-label={`Pick value ${label}`}
+                  title={`Pick ${label}`}
+                >
+                  {/* <code>#{i}</code>&nbsp;*/} {label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
-
-const labelStyle = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 6,
-  fontSize: 14,
-  color: "#333",
-};
-
-const inputStyle = {
-  padding: "8px 10px",
-  borderRadius: 8,
-  border: "1px solid #ccc",
-  outline: "none",
-};
