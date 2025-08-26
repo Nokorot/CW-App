@@ -1,9 +1,11 @@
 import React, { useMemo, useRef, useState } from "react";
 import "./Lerp.css";
 import "./Calc.css";
+import {useNumberFormat} from "../../SettingsContext";
 
 const DEL_sym = "⌫";
 const div_symbol = "÷";
+
 
 // const div_symbol = "/";
 
@@ -99,11 +101,13 @@ function evaluateExpression(expr) {
 
   const val = st[0];
   // prettify a bit
-  const shown =
-    Math.abs(val) >= 1e12 || (Math.abs(val) > 0 && Math.abs(val) < 1e-6)
-      ? val.toExponential(10)
-      : +val.toFixed(12);
-  return { ok: true, value: String(shown).replace(/\.?0+($|e)/, "$1") };
+  // const shown =
+  //   Math.abs(val) >= 1e12 || (Math.abs(val) > 0 && Math.abs(val) < 1e-6)
+  //     ? val.toExponential(10)
+  //     : +val.toFixed(12);
+  //     String(shown).replace(/\.?0+($|e)/, "$1")
+  //
+  return { ok: true, value: val };
 }
 
 export default function CalculatorPage() {
@@ -111,6 +115,8 @@ export default function CalculatorPage() {
   const inputRef = useRef(null);
 
   const result = useMemo(() => evaluateExpression(expr), [expr]);
+
+  const {fmt, toNum} = useNumberFormat();
 
   // Only allow digits, operators, parentheses, dot and spaces in manual typing
   const onBeforeInput = (e) => {
@@ -190,7 +196,7 @@ export default function CalculatorPage() {
           />
           <button className={`calc-result ${result.ok ? "" : "calc-result--err"}`}
             >
-            {result.ok ? (result.value === "" ? " " : result.value) : result.err}
+            {result.ok ? (result.value === "" ? " " : fmt(result.value)) : result.err}
           </button>
         </div>
       </div>

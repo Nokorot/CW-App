@@ -43,8 +43,6 @@ export default function StepsPC({pageContext}) {
     // TODO: push to mem-list state and expose it in a side panel / dropdowns
   };
 
-  const fmt = (v) => (Number.isInteger(v) ? String(v) : v.toPrecision(3).replace(/\.?0+$/, ""));
-
   return (
     <div className="lerp-page">
         <InputPanel
@@ -73,7 +71,6 @@ export default function StepsPC({pageContext}) {
           <ValueList
             values = {values}
             handlePick={handlePick}
-            fmt = {fmt}
           />
         ) : ""}
     </div>

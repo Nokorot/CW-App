@@ -3,6 +3,7 @@ import "./Lerp.css"
 
 import InputPanel from "../InputPanel";
 import ValueList from "../ValueList";
+import {useNumberFormat} from "../../SettingsContext";
 
 export default function LerpPC({pageContext}) {
   var states = [];
@@ -14,9 +15,11 @@ export default function LerpPC({pageContext}) {
   const [steps, setSteps] = useState("5");
   states.push([steps, setSteps, "Steps" ]);
 
+  const {fmt, toNum} = useNumberFormat();
+
   const parsed = {
-    x0: parseFloat(x0),
-    x1: parseFloat(x1),
+    x0: toNum(x0),
+    x1: toNum(x1),
     n: Math.min(999, Math.max(1, Math.floor(Number(steps)))), // clamp to >= 1
   };
 
@@ -46,9 +49,6 @@ export default function LerpPC({pageContext}) {
     // TODO: push to mem-list state and expose it in a side panel / dropdowns
   };
 
-  const fmt = (v) => (Number.isInteger(v) ? String(v) : v.toPrecision(3).replace(/\.?0+$/, ""));
-
-
   return (
     <div className="lerp-page">
         <InputPanel
@@ -74,7 +74,6 @@ export default function LerpPC({pageContext}) {
           <ValueList
             values = {values}
             handlePick={handlePick}
-            fmt = {fmt}
           />
         ) : ""}
 

@@ -1,0 +1,134 @@
+
+/* Container for settings */
+.settings-list {
+  display: grid;
+  gap: 12px;                  /* spacing between rows */
+}
+
+/* One setting per line: label left, control right */
+.settings-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+}
+.settings-row:last-child { border-bottom: none; }
+
+/* Label + help icon */
+.settings-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  min-width: 0;
+}
+
+/* Controls bucket */
+.settings-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Radio choices */
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+/* Number field */
+.num {
+  width: 80px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Preview chip */
+.preview {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f8f8f8;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Button */
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  cursor: pointer;
+}
+.btn:hover { background: #f1f1f1; }
+
+/* Help icon + tooltip (pure CSS; works on hover and keyboard focus) */
+.help {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.help__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #eef3ff;
+  color: #3356cc;
+  border: 1px solid #cdd8ff;
+  font-size: 12px;
+  line-height: 1;
+  cursor: help;
+  user-select: none;
+}
+
+.help__bubble {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  max-width: 48ch;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #cdd8ff;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  color: #2a2a2a;
+  font-size: 13px;
+  line-height: 1.35;
+  z-index: 10;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+/* Show bubble on hover OR when the icon is keyboard-focused */
+.help:hover .help__bubble,
+.help__icon:focus + .help__bubble {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Mobile: stack label over control if space is tight */
+@media (max-width: 520px) {
+  .settings-row {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .settings-control {
+    justify-content: flex-start;
+  }
+}

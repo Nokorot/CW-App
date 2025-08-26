@@ -1,17 +1,22 @@
 import React, { useMemo, useState } from "react";
 import "./Lerp.css";
 import "./Pythagoras.css";
+import {useNumberFormat} from "../../SettingsContext";
 
 
-const PRESITION = 2;
-
-const toNum = (s) => {
-  const n = parseFloat(String(s).replace(",", ".")); // allow comma
-  return Number.isFinite(n) ? n : NaN;
-};
+// const toNum = (s) => {
+//   const n = parseFloat(String(s).replace(",", ".")); // allow comma
+//   return Number.isFinite(n) ? n : NaN;
+// };
 
 
-const Field = ({ id, label, value, onChange, filledFlag }) => {
+const Field = ({
+  label,
+  value,
+  onChange,
+  filledFlag,
+  toNum
+}) => {
   const isComputed = !filledFlag && value !== "" && Number.isFinite(toNum(value));
   return (
     <label className={`field ${isComputed ? "field--locked" : ""}`}>
@@ -65,17 +70,7 @@ export default function PythagorasPage() {
   const deg2rad = (d) => (d * Math.PI) / 180;
   const rad2deg = (r) => (r * 180) / Math.PI;
 
-  // const fmt = (v) => (
-  //     Number.isInteger(v)
-  //         ? String(v) :
-  //   Number.isFinite(v) ? v.toPrecision(3) : "").replace(/\.0+/, "");
-
-  const fmt = (v) =>
-    Number.isFinite(v)
-      ? (Math.abs(v) >= 1e6 || Math.abs(v) <= 1e-6
-          ? v.toExponential(3)
-          : +v.toFixed(PRESITION)).toString().replace(/\.0+$/, "f")
-      : "";
+  const {fmt, toNum} = useNumberFormat();
 
   const inputs = {
     a: toNum(aStr),
@@ -94,7 +89,7 @@ export default function PythagorasPage() {
 
   const { solved, err } = useMemo(() => {
     // Pick exactly which pair(s) are provided
-    const provided = Object.keys(filled).filter((k) => filled[k]);
+    const provided = Object.keys(filled).filter((k) => filled[k]).length;
 
 
     // Copy to avoid mutating 'inputs'
@@ -153,16 +148,29 @@ export default function PythagorasPage() {
   };
 
 
+  const fields = [
+    ["Side A", view.a, setA, filled.a],
+    ["Side B", view.b, setB, filled.b],
+    ["Side C", view.c, setC, filled.c],
+    ["Angle α (deg)", view.alpha, setAlpha, filled.alpha],
+    ["Angle β (deg)", view.beta, setBeta, filled.beta],
+  ];
+
+
   // Simple triangle drawing (same as you had)
   return (
     <div className="lerp-page">
       <div className="sticky-block">
         <div className="input-panel">
-          <Field id="a" label="Side A" value={view.a} onChange={setA} filledFlag={filled.a} />
-          <Field id="b" label="Side B" value={view.b} onChange={setB} filledFlag={filled.b} />
-          <Field id="c" label="Side C" value={view.c} onChange={setC} filledFlag={filled.c} />
-          <Field id="alpha" label="Angle α (deg)" value={view.alpha} onChange={setAlpha} filledFlag={filled.alpha} />
-          <Field id="beta" label="Angle β (deg)" value={view.beta} onChange={setBeta} filledFlag={filled.beta} />
+          {fields.map((args) => {
+            return (<Field
+              label={args[0]}
+              value={args[1]}
+              onChange={args[2]}
+              filledFlag={args[3]}
+              toNum={toNum}
+            />);
+          })}
 
           <label className="field field--clear">
             <span className="field__label">clear</span>

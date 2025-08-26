@@ -6,8 +6,8 @@ import Layout from "../Layout";
 
 import { useState, useEffect } from "react";
 import PythagorasPage from "./Pythagoras";
-import CalcPC from "./Calc";
 import CalculatorPage from "./Calc";
+import SettingsPage from "./SettingPage";
 
 
 var viewStates = {
@@ -36,6 +36,12 @@ var viewStates = {
     topBarMenu: true,
   },
 
+  settings: {
+    type: 'settings',
+    pgc: SettingsPage,
+    title: "Settings",
+    topBarMenu: true,
+  },
   home: {
     type: 'home',
     pgc: HomePageContainer,
