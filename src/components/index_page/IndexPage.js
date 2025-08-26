@@ -6,34 +6,47 @@ import Layout from "../Layout";
 
 import { useState, useEffect } from "react";
 import PythagorasPage from "./Pythagoras";
+import CalcPC from "./Calc";
+import CalculatorPage from "./Calc";
 
-function IndexPage() {
-  var viewStates = {};
-  viewStates.home = {
-    type: 'home',
-    pgc: HomePageContainer,
-    title: "Home"
-  }
-  viewStates.lerp = {
+
+var viewStates = {
+  calc: {
+    type: 'calc',
+    pgc: CalculatorPage,
+    title: "Calculator",
+    topBarMenu: true,
+  },
+  lerp: {
     type: 'lerp',
     pgc: LerpPC,
     title: "Distribute",
     topBarMenu: true,
-  }
-  viewStates.steps = {
+  },
+  steps: {
     type: 'steps',
     pgc: StepsPC,
     title: "Multiples",
     topBarMenu: true,
-  }
-  viewStates.pythgas = {
+  },
+  pythgas: {
     type: 'pythgas',
     pgc: PythagorasPage,
     title: "Diagonal",
     topBarMenu: true,
-  }
+  },
 
-  const initialView = viewStates.pythgas
+  home: {
+    type: 'home',
+    pgc: HomePageContainer,
+    title: "Home"
+  },
+}
+
+
+function IndexPage() {
+
+  const initialView = viewStates.calc;
 
   const [viewState, setViewState] = useState(initialView);
   const [topBarWidget, setTopBarWidget] = useState(null);
