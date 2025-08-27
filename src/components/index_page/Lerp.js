@@ -1,21 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./Lerp.css"
 
 import InputPanel from "../InputPanel";
 import ValueList from "../ValueList";
-import {useNumberFormat} from "../../SettingsContext";
+import {useNumberFormat, usePersistentState} from "../../SettingsContext";
 
-export default function LerpPC({pageContext}) {
+export default function LerpPC({ }) {
   var states = [];
 
-  const [x0, setX0] = useState("2.5");
+  const [x0, setX0] = usePersistentState("lerp-x0", "2.5");
   states.push([x0, setX0, "Start" ]);
-  const [x1, setX1] = useState("9.25");
+  const [x1, setX1] = usePersistentState("lerp-x1", "9.25");
   states.push([x1, setX1, "End" ]);
-  const [steps, setSteps] = useState("5");
+  const [steps, setSteps] = usePersistentState("lerp-steps", "5");
   states.push([steps, setSteps, "Steps" ]);
 
-  const {fmt, toNum} = useNumberFormat();
+  const {toNum} = useNumberFormat();
 
   const parsed = {
     x0: toNum(x0),

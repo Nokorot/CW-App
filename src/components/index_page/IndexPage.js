@@ -50,11 +50,42 @@ var viewStates = {
 }
 
 
+export function usePersistentViewState() {
+  const key = "indexpage-veiwstate";
+  const initialValue = viewStates.calc;
+
+  // load once from localStorage
+  const [value, setValue] = useState(() => {
+    try {
+      const stored = localStorage.getItem(key);
+
+      return stored !== null ? viewStates[JSON.parse(stored)] : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
+
+  // save whenever value changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value.type));
+    } catch {
+      /* ignore quota errors */
+    }
+  }, [key, value]);
+
+  return [value, setValue];
+}
+
+
+
+
+
 function IndexPage() {
 
   const initialView = viewStates.calc;
 
-  const [viewState, setViewState] = useState(initialView);
+  const [viewState, setViewState] = usePersistentViewState(initialView);
   const [topBarWidget, setTopBarWidget] = useState(null);
 
   const pageContext = {

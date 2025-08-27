@@ -123,6 +123,7 @@ const TopBar = ({ pageContext, widget }) => {
                 return;
 
               return (<button
+                  key={view.type}
                   className={`option-item ${isActive(view) ? "active" : ""}`}
                   onClick={() => setViewState(view)}
                 >

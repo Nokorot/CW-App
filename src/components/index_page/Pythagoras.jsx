@@ -1,14 +1,7 @@
 import React, { useMemo, useState } from "react";
 import "./Lerp.css";
 import "./Pythagoras.css";
-import {useNumberFormat} from "../../SettingsContext";
-
-
-// const toNum = (s) => {
-//   const n = parseFloat(String(s).replace(",", ".")); // allow comma
-//   return Number.isFinite(n) ? n : NaN;
-// };
-
+import {useNumberFormat, usePersistentState} from "../../SettingsContext";
 
 const Field = ({
   label,
@@ -60,11 +53,11 @@ const Field = ({
  * Units: angles in DEGREES.
  */
 export default function PythagorasPage() {
-  const [aStr, setA] = useState("");
-  const [bStr, setB] = useState("");
-  const [cStr, setC] = useState("");
-  const [alphaStr, setAlpha] = useState("");
-  const [betaStr, setBeta] = useState("");
+  const [aStr, setA] = usePersistentState("pythgas-a", "");
+  const [bStr, setB] = usePersistentState("pythgas-b", "");
+  const [cStr, setC] = usePersistentState("pythgas-c", "");
+  const [alphaStr, setAlpha] = usePersistentState("pythgas-alpta", "");
+  const [betaStr, setBeta] = usePersistentState("pythgas-beta", "");
 
   // Helpers
   const deg2rad = (d) => (d * Math.PI) / 180;

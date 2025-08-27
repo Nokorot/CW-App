@@ -75,11 +75,23 @@ export default function SettingsPage() {
                 max={12}
                 step={1}
                 value={settings.fractionDigits}
-                onChange={(e) =>
-                  update({
-                    fractionDigits: Math.max(0, Math.min(12, Math.floor(+e.target.value || 0))),
-                  })
-                }
+                onChange={(e) => {
+                  const raw = e.target.value;
+
+                  // Allow empty entry
+                  if (raw === "") {
+                    update({ fractionDigits: "" });
+                    return;
+                  }
+                  const n = Math.max(0, Math.min(12, Math.floor(+raw)));
+                  update({ fractionDigits: n });
+                }}
+                onBlur={(e) => {
+                  if (e.target.value === "") {
+                    // if user left it empty, reset to a sensible default
+                    update({ fractionDigits: 0 });
+                  }
+                }}
                 className="num"
               />
             </div>

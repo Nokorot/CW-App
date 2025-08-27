@@ -4,21 +4,24 @@ import "./Lerp.css"
 
 import InputPanel from "../InputPanel";
 import ValueList from "../ValueList";
+import {useNumberFormat, usePersistentState} from "../../SettingsContext";
 
 
 export default function StepsPC({pageContext}) {
   var states = [];
 
-  const [x0, setX0] = useState("2.5");
+  const [x0, setX0] = usePersistentState("steps-x0", "2.5");
   states.push([x0, setX0, "Start" ]);
-  const [x1, setX1] = useState("1.125");
+  const [x1, setX1] = usePersistentState("steps-x1", "9.25");
   states.push([x1, setX1, "Spacing" ]);
-  const [steps, setSteps] = useState("123");
+  const [steps, setSteps] = usePersistentState("steps-steps", "123");
   states.push([steps, setSteps, "Steps" ]);
 
+  const {toNum} = useNumberFormat();
+
   const parsed = {
-    x0: parseFloat(x0),
-    step: parseFloat(x1),
+    x0: toNum(x0),
+    step: toNum(x1),
     n: Math.min(999, Math.max(1, Math.floor(Number(steps)))), // clamp to >= 1
   };
 
