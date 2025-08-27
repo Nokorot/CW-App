@@ -5,7 +5,7 @@ function Layout({ topBarWidget, pageContext, children }) {
   const title = "Construction Work App"
 
   return (
-    <div style={{ backgroundColor: '#d9ead3', minHeight: '100vh' }}>
+    <div style={{ minHeight: '100vh' }}>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.ico" />

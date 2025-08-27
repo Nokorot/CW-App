@@ -12,62 +12,52 @@
 }
 
 .side {
-  stroke: #333;
+  stroke: var(--pyth-triangle);
   stroke-width: 3;
 }
 
-.side.unknown {
-  stroke: #2f6fed; /* highlight the unknown being solved */
-}
-
-
 .side-label-box rect {
-  fill: #f8f8f8;
-  stroke: #ccc;
+  fill: var(--pyth-triangle-side-label--bg);
+  stroke: var(--pyth-triangle-side-label--border);
   stroke-width: 1;
   cursor: pointer;
 }
-
-.side-label-box:hover rect {
-  fill: #eee;
-}
-
-.side-label-box:active rect {
-  fill: #ddd;
-}
+.side-label-box:hover rect { fill: var(--pyth-triangle-side-label-hover--bg); }
+.side-label-box:active rect { fill: var(--pyth-triangle-side-label-active--bg); }
 
 .side-label-box text {
   font: 12px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  fill: #333;
+  fill: var(--pyth-triangle-side-label-fg);
   pointer-events: none;
 }
-
-
-.side-label text.rotate {
+.side-label-box text.rotate {            /* ← fixed selector */
   writing-mode: vertical-rl;
   glyph-orientation-vertical: 0;
 }
 
-
-
 /* Smaller label row with a right-aligned 'Locked' chip */
 .field { display: flex; flex-direction: column; gap: 6px; }
-.field__label { display: flex; align-items: center; gap: 8px; color: #333; font-size: 14px; }
+.field__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--labels-fg);
+  font-size: 14px;
+}
 
 /* Computed fields: grey and non-interactive */
 .field--locked input {
-  background: #ddd;
-  color: #666;
-  border-color: #ddd;
+  background: var(--locked-field-bg);
+  color: var(--locked-field-fg);
+  border-color: var(--locked-field-border);
   cursor: pointer;
 }
-
-.field--locked input:hover   { background: #f1f1f1; }
+.field--locked input:hover { background: var(--locked-field-hover-bg); }
 
 .field--locked button {
-  background: #ccc;
-  color: #666;
-  border-color: #ddd;
+  background: var(--locked-button-bg);
+  color: var(--locked-button-fg);
+  border-color: var(--locked-button-border);
 }
 
 /* Clear button styling to match inputs */
@@ -75,8 +65,8 @@
   height: 100%;
   padding: 6px 12px;
   border-radius: 4px;
-  border: 1px solid #ccc;
-  background: #fafafa;
+  border: 1px solid var(--clear-btn-border);
+  background: var(--clear-btn-bg);
   cursor: pointer;
 }
-.field--clear .clear-btn:hover { background: #f2f2f2; }
+.field--clear .clear-btn:hover { background: var(--clear-btn-hover-bg); }

@@ -1,3 +1,151 @@
+:root {
+
+  --bg: #d9ead3;
+  --text: #000;
+  --accent: #ff7f2a;
+  --surface: #f6f6f6;
+  --border: #ddd;
+
+  --labels-fg: #333;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --input-focus-border: #888;
+
+  --values-bg: #fff;
+  --values-border: #ddd;
+  --values-focus-border: #7aa7ff;
+  --values-hover: #f1f1f1;
+
+  /* TopBar / Options drawer */
+  --topbar-bg: #864;
+  --topbar-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  --userpic-border: #ffffff;
+  --drawer-shadow: 2px 0 16px rgba(0,0,0,0.15);
+  --options-divider: #eeeeee;
+  --options-hover: #f5f5f5;
+  --options-active: #f0f0f0;
+  --options-fg: #333;
+  --options-bg: #333;
+
+  --membar-bg: #ffffff;
+  --membar-border: #e6e6e6;
+
+  --membar-chip-bg: #f8f8f8;
+  --membar-chip-border: #ddd;
+  --membar-chip-hover: #f1f1f1;
+
+  /* Calc */
+  --calc-expr-bg: #fff;
+  --calc-expr-border: #ccc;
+  --calc-result-bg: #f8f8f8;
+  --calc-result-border: #ddd;
+  --calc-result-err-fg: #b00020;
+  --calc-result-err-bg: #fff5f6;
+  --calc-result-err-border: #f0b4b4;
+  --calc-pad-bg: #f8f8f8;
+  --calc-pad-border: #dddddd;
+  --calc-pad-hover: #f1f1f1;
+  --calc-pad-focus-border: #7aa7ff;
+  --calc-pad-equals: #2f6fed;
+  --calc-pad-equals-fg: #fff;
+  --calc-pad-equals-border: #2f6fed;
+  --calc-pad-equals-hover: #255dde;
+
+
+  --calc-pad-clear--bg: #fff7e6;
+  --calc-pad-clear--border: #f0d9a7;
+  --calc-pad-del--bg:#ffeef1;
+  --calc-pad-del--border: #f3b3bf;
+
+  --pyth-triangle: #333;
+  --pyth-triangle-side-label-fg: #333;
+  --pyth-triangle-side-label--border: #ccc;
+  --pyth-triangle-side-label--bg: #f8f8f8;
+  --pyth-triangle-side-label-hover--bg: #eee;
+  --pyth-triangle-side-label-active--bg: #ddd;
+
+  /* Pythagoras / locked-field tokens */
+  --locked-field-bg: #dddddd;
+  --locked-field-fg: #666666;
+  --locked-field-border: #dddddd;
+  --locked-field-hover-bg: #f1f1f1;
+
+  --locked-button-bg: #cccccc;
+  --locked-button-fg: #666666;
+  --locked-button-border: #dddddd;
+
+  /* Clear button */
+  --clear-btn-bg: #fafafa;
+  --clear-btn-border: #cccccc;
+  --clear-btn-hover-bg: #f2f2f2;
+
+  /* Settings page tokens */
+  --settings-row-border: #eeeeee;
+
+  --settings-label-fg: #333333;
+
+  --choice-bg: #fafafa;
+  --choice-border: #dddddd;
+
+  --num-border: #cccccc;
+
+  --preview-bg: #f8f8f8;
+  --preview-border: #dddddd;
+
+  --btn-bg: #fafafa;
+  --btn-border: #cccccc;
+  --btn-hover-bg: #f1f1f1;
+
+  --help-icon-bg: #eef3ff;
+  --help-icon-fg: #3356cc;
+  --help-icon-border: #cdd8ff;
+
+  --help-bubble-bg: #ffffff;
+  --help-bubble-fg: #2a2a2a;
+  --help-bubble-border: #cdd8ff;
+  --help-bubble-shadow: 0 8px 24px rgba(0,0,0,.08);
+
+
+  /* Lerp page tokens */
+  --page-surface-bg: #fafafa;
+  --page-surface-shadow: 0 1px 2px rgba(0,0,0,.04);
+
+  --msg-error-fg: #cc0000;
+  --msg-info-fg: #555555;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+button {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+input {
+  background: var(--surface);
+  color: var(--text);
+}
+
+
+.page-container {
+  margin: 20px;
+  overscroll-behavior: contain;  /* avoid page pull-to-refresh bounce on mobile */
+}
+
+
+
+
+
+
+
+/* React defaults */
+
+
 .App {
   text-align: center;
 }
@@ -27,7 +175,6 @@
 .App-link {
   color: #61dafb;
 }
-
 
 @keyframes App-logo-spin {
   from {

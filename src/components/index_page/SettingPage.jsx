@@ -3,6 +3,7 @@ import "./Lerp.css";
 import "./Settings.css";
 import {useSettings} from "../../SettingsContext";
 import {useMemory} from "../MemoryContext";
+import {getThemes, useTheme} from "../../ThemeContex";
 
 function Help({ id, children }) {
   return (
@@ -18,6 +19,8 @@ function Help({ id, children }) {
 export default function SettingsPage() {
   const { settings, update } = useSettings();
   const { clear } = useMemory();
+  const { themeName, setThemeName } = useTheme();
+
   const sample = 1234.56789;
 
   const fmtPreview = () => {
@@ -160,6 +163,30 @@ export default function SettingsPage() {
               >
                 Clear memory
               </button>
+            </div>
+          </div>
+
+          {/* Clear memory */}
+          <div className="settings-row">
+            <div className="settings-label">
+              <span>Theme</span>
+              <Help id="help-clear">
+                Select an app theme fitting your preference.
+              </Help>
+            </div>
+            <div className="settings-control">
+              <select value={themeName} onChange={(e) => setThemeName(e.target.value)}>
+                {getThemes().map((key) => {
+                  return (<option>
+                      <option value={key}>{key}</option>
+                    </option>)
+
+                })}
+
+                {/* <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="blueprint">Blueprint</option> */}
+              </select>
             </div>
           </div>
 

@@ -78,33 +78,6 @@ const TopBar = ({ pageContext, widget }) => {
       <div className="top-bar-widget">
         {widget}
       </div>
-      {/*
-    <div className="top-bar-user" ref={menuRef}>
-        {isAuthenticated && user && (
-          <>
-            <img
-              src={user.picture}
-              alt={user.name}
-              className="top-bar-user-pic"
-              onClick={() => setMenuOpen((open) => !open)}
-              style={{ cursor: "pointer" }}
-            />
-            {menuOpen && (
-              <div className="user-menu-popup">
-                <button className="user-menu-item">Your Profile</button>
-                <button className="user-menu-item">Settings</button>
-                <button
-                  className="user-menu-item"
-                  onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-                >
-                  Log Out
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </div>
-  */}
 
       { menuState.type == menuStateOptions.type && (
         <>

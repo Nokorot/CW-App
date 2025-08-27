@@ -1,5 +1,4 @@
 
-import HomePageContainer from "./Home";
 import LerpPC from "./Lerp";
 import StepsPC from "./Steps";
 import Layout from "../Layout";
@@ -46,11 +45,6 @@ var viewStates = {
     pgc: SettingsPage,
     title: "Settings",
     topBarMenu: true,
-  },
-  home: {
-    type: 'home',
-    pgc: HomePageContainer,
-    title: "Home"
   },
 }
 

@@ -4,9 +4,8 @@
   position: fixed;
   left: 0; right: 0; bottom: 0;
   z-index: 1200;
-  background: #ffffffcc;
-  backdrop-filter: blur(6px);
-  border-top: 1px solid #e6e6e6;
+  background: var(--membar-bg);
+  border-top: 1px solid var(--membar-border);
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -27,9 +26,9 @@
 .mem-chip {
   padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid #ddd;
-  background: #f8f8f8;
+  border: 1px solid var(--membar-chip-border);
+  background: var(--membar-chip-bg);
   cursor: pointer;
   white-space: nowrap;
 }
-.mem-chip:hover { background: #f1f1f1; }
+.mem-chip:hover { background: var(--membar-chip-hover); }

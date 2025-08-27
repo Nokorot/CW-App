@@ -3,9 +3,9 @@
   align-items: center;
   justify-content: space-between;
   height: 48px;
-  background: #D8B9A4;
+  background: var(--topbar-bg);
   padding: 0 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  box-shadow: var(--topbar-shadow);
 }
 
 .top-bar-icon {
@@ -34,100 +34,23 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #fff;
+  border: 2px solid var(--userpic-border);
 }
 
 .top-bar-widget h2 {
   margin-bottom: 12px;
-  white-space: nowrap;       /* prevent wrapping */
-  overflow: hidden;          /* hide anything that overflows */
-  text-overflow: ellipsis;       /* cut off instead of wrapping */
-  box-sizing: border-box; /* padding/border stay inside width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 }
-
-
-
-/*
-.user-menu-popup {
-  position: absolute;
-  top: 48px;
-  right: 8px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  min-width: 160px;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  padding: 8px 0;
-}
-
-.user-menu-item {
-  background: none;
-  border: none;
-  text-align: left;
-  padding: 12px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  color: #333;
-  width: 100%;
-}
-
-.user-menu-item:hover {
-  background: #f0f0f0;
-} */
-
-.user-menu-popup {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 220px;
-  background: #fff;
-  box-shadow: -2px 0 16px rgba(0,0,0,0.15);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  padding-top: 64px; /* space for top bar */
-  animation: slideInRight 0.2s ease;
-}
-
-@keyframes slideInRight {
-  from { right: -240px; opacity: 0; }
-  to { right: 0; opacity: 1; }
-}
-
-.user-menu-item {
-  background: none;
-  border: none;
-  text-align: left;
-  padding: 18px 24px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  color: #333;
-  width: 100%;
-  border-bottom: 1px solid #eee;
-}
-
-.user-menu-item:last-child {
-  border-bottom: none;
-}
-
-.user-menu-item:hover {
-  background: #f0f0f0;
-}
-
-
-
-
-
 
 /* Backdrop behind any drawer */
 .drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.28);
-  z-index: 999;               /* just under the drawer */
+  background: rgba(0,0,0,0.28); /* still an alpha black overlay */
+  z-index: 999;
 }
 
 /* Left-side options drawer */
@@ -137,12 +60,12 @@
   left: 0;
   height: 100dvh;
   width: 260px;
-  background: #fff;
-  box-shadow: 2px 0 16px rgba(0,0,0,0.15);
+  background: var(--options-bg);
+  box-shadow: var(--drawer-shadow);
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  padding-top: 64px;          /* space for the 48px top bar + breathing room */
+  padding-top: 64px;
   animation: slideInLeft 0.2s ease;
 }
 
@@ -151,7 +74,6 @@
   to   { left: 0;      opacity: 1; }
 }
 
-/* Option items (reuse look of user-menu-item) */
 .option-item {
   background: none;
   border: none;
@@ -159,16 +81,16 @@
   padding: 18px 24px;
   font-size: 1.05rem;
   cursor: pointer;
-  color: #333;
+  color: var(--options-fg);
   width: 100%;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--options-divider);
 }
 .option-item:last-child { border-bottom: none; }
-.option-item:hover      { background: #f5f5f5; }
+.option-item:hover      { background: var(--options-hover); }
 
-/* current route highlight */
 .option-item.active {
-  background: #f0f0f0;
+  background: var(--options-active);
+  color: var(--options-active-fg);
   font-weight: 600;
 }
 
@@ -184,8 +106,8 @@
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
-  color: #333;
+  color: var(--options-fg);
 }
 .options-close-btn:hover {
-  background: #f0f0f0;
+  background: var(--options-hover);
 }
