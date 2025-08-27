@@ -5,7 +5,9 @@ const SettingsContext = createContext(null);
 const DEFAULTS = {
   decimalSeparator: ",",      // "." or ","
   fractionDigits: 4,          // 0..12
+  memBarMax: 100,
 };
+
 
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(() => {
@@ -41,7 +43,6 @@ export function useNumberFormat() {
   const fmt = (value) => {
     if (value == null || !Number.isFinite(value)) return "";
     // fixed digits, then swap decimal if needed, and strip trailing zeros if fractionDigits==0
-    //
     let s = value.toFixed(fractionDigits);
 
     if (decimalSeparator === ",") s = s.replace(".", ",");
@@ -59,3 +60,28 @@ export function useNumberFormat() {
 
   return { fmt, toNum };
 }
+
+
+export function usePersistentState(key, initialValue) {
+  // load once from localStorage
+  const [value, setValue] = useState(() => {
+    try {
+      const stored = localStorage.getItem(key);
+      return stored !== null ? JSON.parse(stored) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
+
+  // save whenever value changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      /* ignore quota errors */
+    }
+  }, [key, value]);
+
+  return [value, setValue];
+}
+
