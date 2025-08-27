@@ -1,7 +1,10 @@
 
+import {useNumberFormat} from "../SettingsContext";
 import "./ValueList.css";
 
-export default function ValueList({ values, handlePick, fmt }) {
+export default function ValueList({ values, handlePick }) {
+  const { fmt } = useNumberFormat();
+
   return (
       <div className="results-wrap" role="region" aria-label="Results">
           <div className="result-grid">
