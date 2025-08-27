@@ -172,4 +172,20 @@
   font-weight: 600;
 }
 
-/* Keep the existing top bar styles as-is */
+.options-close-btn {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #333;
+}
+.options-close-btn:hover {
+  background: #f0f0f0;
+}

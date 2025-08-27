@@ -99,9 +99,6 @@ const TopBar = ({ pageContext, widget }) => {
                 >
                   Log Out
                 </button>
- */}
-                {/* <button className="user-menu-item">Help</button> */}
-    {/*
               </div>
             )}
           </>
@@ -125,8 +122,6 @@ const TopBar = ({ pageContext, widget }) => {
               if (!view.topBarMenu)
                 return;
 
-              console.log(view);
-
               return (<button
                   className={`option-item ${isActive(view) ? "active" : ""}`}
                   onClick={() => setViewState(view)}
@@ -135,23 +130,15 @@ const TopBar = ({ pageContext, widget }) => {
               </button>);
             })}
 
-            { // <button
-            //   className={`option-item`}
-            //   onClick={() => setViewState("lerp")}
-            // >
-            //   Linear Spacing
-            // </button>
-            // <button
-            //   className={`option-item`}
-            //   onClick={() => setViewState("steps")}
-            // >
-            //   Step Spacing
-            // </button>
-              }
-
-            {/* Add more pages here later */}
-            {/* <button className="option-item" onClick={() => go("/something")}>Something</button> */}
+            <button
+              className="options-close-btn"
+              onClick={() => closeMenu()}
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
           </nav>
+
         </>
       )}
 
