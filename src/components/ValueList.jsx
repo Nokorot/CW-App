@@ -1,8 +1,10 @@
 
 import {useNumberFormat} from "../SettingsContext";
+import {useMemory} from "./MemoryContext";
 import "./ValueList.css";
 
-export default function ValueList({ values, handlePick }) {
+export default function ValueList({ values }) {
+  const { add } = useMemory();
   const { fmt } = useNumberFormat();
 
   return (
@@ -15,7 +17,7 @@ export default function ValueList({ values, handlePick }) {
                   key={`${i}-${label}`}
                   type="button"
                   className="result-chip"
-                  onClick={() => handlePick(v)}
+                  onClick={() => add(v)}
                   aria-label={`Pick value ${label}`}
                   title={`Pick ${label}`}
                 >

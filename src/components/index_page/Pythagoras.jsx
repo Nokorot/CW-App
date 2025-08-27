@@ -1,16 +1,35 @@
 import React, { useMemo, useState } from "react";
 import "./Lerp.css";
 import "./Pythagoras.css";
-import {useNumberFormat, usePersistentState} from "../../SettingsContext";
+import {useNumberFormat, usePersistentState, useSettings} from "../../SettingsContext";
+import {useInputFiled} from "../InputPanel";
+import {useMemory} from "../MemoryContext";
 
 const Field = ({
   label,
   value,
-  onChange,
+  setValue,
   filledFlag,
   toNum
 }) => {
+
   const isComputed = !filledFlag && value !== "" && Number.isFinite(toNum(value));
+
+  const { add, setTarget } = useMemory();
+  const { settings } = useSettings();
+
+  const formatForField = (numOrStr) => {
+    // accept numbers or strings; return string respecting settings.decimalSeparator
+    const n = typeof numOrStr === "number" ? numOrStr : parseFloat(String(numOrStr).replace(",", "."));
+    if (!Number.isFinite(n)) return "";
+    let s = n.toString();
+    // If you prefer consistent display digits, use Settings fmt here instead.
+    if (settings.decimalSeparator === ",") s = s.replace(".", ",");
+    return s;
+  };
+
+  const {onChange, onFocus } = useInputFiled(settings, setTarget, formatForField)
+
   return (
     <label className={`field ${isComputed ? "field--locked" : ""}`}>
       <span className="field__label">
@@ -21,8 +40,12 @@ const Field = ({
           readOnly
           aria-disabled
           value={value ?? ""}
-          onClick={() => console.log(value)}
-          disabled={true}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            add(toNum(value));
+            // add(value);
+            console.log(value)
+          }}
           tabIndex={-1}
         ></input>
         :
@@ -35,7 +58,8 @@ const Field = ({
           inputMode="decimal"
           min={0}
           value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => onChange(e, value, setValue)}
+          onFocus={() => onFocus(value, setValue)}
         />
       }
     </label>
@@ -159,7 +183,7 @@ export default function PythagorasPage() {
             return (<Field
               label={args[0]}
               value={args[1]}
-              onChange={args[2]}
+              setValue={args[2]}
               filledFlag={args[3]}
               toNum={toNum}
             />);

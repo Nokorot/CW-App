@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import PythagorasPage from "./Pythagoras";
 import CalculatorPage from "./Calc";
 import SettingsPage from "./SettingPage";
+import MemBar from "../MemBar";
 
 
 var viewStates = {
@@ -16,24 +17,28 @@ var viewStates = {
     pgc: CalculatorPage,
     title: "Calculator",
     topBarMenu: true,
+    memBar: true,
   },
   lerp: {
     type: 'lerp',
     pgc: LerpPC,
     title: "Distribute",
     topBarMenu: true,
+    memBar: true,
   },
   steps: {
     type: 'steps',
     pgc: StepsPC,
     title: "Multiples",
     topBarMenu: true,
+    memBar: true,
   },
   pythgas: {
     type: 'pythgas',
     pgc: PythagorasPage,
     title: "Diagonal",
     topBarMenu: true,
+    memBar: true,
   },
 
   settings: {
@@ -111,6 +116,7 @@ function IndexPage() {
       <viewState.pgc
             pageContext={pageContext}
       />
+      { viewState.memBar ? <MemBar/> : "" }
     </Layout>);
   } else {
     return (<div> Invalid Page state "{viewState.type}" </div> );

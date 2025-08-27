@@ -2,6 +2,7 @@ import React from "react";
 import "./Lerp.css";
 import "./Settings.css";
 import {useSettings} from "../../SettingsContext";
+import {useMemory} from "../MemoryContext";
 
 function Help({ id, children }) {
   return (
@@ -16,6 +17,7 @@ function Help({ id, children }) {
 
 export default function SettingsPage() {
   const { settings, update } = useSettings();
+  const { clear } = useMemory();
   const sample = 1234.56789;
 
   const fmtPreview = () => {
@@ -109,6 +111,58 @@ export default function SettingsPage() {
               <div className="preview">{fmtPreview()}</div>
             </div>
           </div>
+
+          {/* MemBar length */}
+          <div className="settings-row">
+            <div className="settings-label">
+              <span>Memory bar length</span>
+              <Help id="help-membar">
+                The maximum number of saved values shown and stored in the memory bar.
+                Older values are dropped when the limit is reached.
+              </Help>
+            </div>
+            <div className="settings-control">
+              <input
+                type="number"
+                min={1}
+                max={500}
+                step={1}
+                className="num"
+                value={settings.memBarMax === "" ? "" : settings.memBarMax}
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  if (raw === "") return update({ memBarMax: "" });   // let it be empty while editing
+                  const n = Math.max(1, Math.min(500, Math.floor(+raw)));
+                  update({ memBarMax: n });
+                }}
+                onBlur={(e) => {
+                  if (e.target.value === "") update({ memBarMax: 50 }); // default if left empty
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Clear memory */}
+          <div className="settings-row">
+            <div className="settings-label">
+              <span>Clear memory</span>
+              <Help id="help-clear">
+                Remove all saved values from the memory bar. This action cannot be undone.
+              </Help>
+            </div>
+            <div className="settings-control">
+              <button
+                type="button"
+                className="btn"
+                onClick={() => {
+                  if (window.confirm("Clear all memory values?")) clear();
+                }}
+              >
+                Clear memory
+              </button>
+            </div>
+          </div>
+
 
           {/* Reset */}
           <div className="settings-row">

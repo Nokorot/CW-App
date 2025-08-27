@@ -41,14 +41,6 @@ export default function LerpPC({ }) {
     return arr;
   }, [x0, x1, steps]);
 
-
-
-  const [lastPicked, setLastPicked] = useState(null); // for future mem-list UX
-
-  const handlePick = (value) => { setLastPicked(value);
-    // TODO: push to mem-list state and expose it in a side panel / dropdowns
-  };
-
   return (
     <div className="lerp-page">
         <InputPanel
@@ -73,7 +65,6 @@ export default function LerpPC({ }) {
         {!hasInvalidInput ? (
           <ValueList
             values = {values}
-            handlePick={handlePick}
           />
         ) : ""}
 

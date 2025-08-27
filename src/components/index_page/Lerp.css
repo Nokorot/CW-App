@@ -17,7 +17,15 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+
+
 }
+
+/* optional: give space so content doesn't hide behind mem-bar */
+.lerp-page { padding-bottom: 56px; }
+
+
 
 /* Nice on wide screens: keep the content narrow but centered */
 @media (min-width: 1280px) {
