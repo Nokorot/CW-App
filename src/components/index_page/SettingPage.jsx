@@ -3,7 +3,6 @@ import "./Lerp.css";
 import "./Settings.css";
 import {useSettings} from "../../SettingsContext";
 import {useMemory} from "../MemoryContext";
-import {getThemes, useTheme} from "../../ThemeContex";
 
 function Help({ id, children }) {
   return (
@@ -17,9 +16,9 @@ function Help({ id, children }) {
 }
 
 export default function SettingsPage() {
-  const { settings, update } = useSettings();
+  const { settings, update, availableThemes } = useSettings();
   const { clear } = useMemory();
-  const { themeName, setThemeName } = useTheme();
+  // const { themeName, setThemeName } = useTheme();
 
   const sample = 1234.56789;
 
@@ -166,7 +165,7 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          {/* Clear memory */}
+          {/* Choose theme */}
           <div className="settings-row">
             <div className="settings-label">
               <span>Theme</span>
@@ -175,12 +174,12 @@ export default function SettingsPage() {
               </Help>
             </div>
             <div className="settings-control">
-              <select value={themeName} onChange={(e) => setThemeName(e.target.value)}>
-                {getThemes().map((key) => {
-                  return (<option>
-                      <option value={key}>{key}</option>
-                    </option>)
-
+              <select
+                value={settings.themeName}
+                onChange={(e) => update({themeName: e.target.value})}
+              >
+                {availableThemes.map((key) => {
+                  return (<option key={key} value={key}>{key}</option>)
                 })}
 
                 {/* <option value="light">Light</option>

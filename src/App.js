@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import './App.css';
 import {MemoryProvider} from './components/MemoryContext';
 import IndexPage from './components/index_page/IndexPage';
-import {ThemeProvider} from './ThemeContex';
 import {SettingsProvider} from './SettingsContext';
 
 function App() {
@@ -23,9 +22,7 @@ function App() {
   return (
     <SettingsProvider>
     <MemoryProvider>
-      <ThemeProvider>
-          <IndexPage/>
-      </ThemeProvider>
+       <IndexPage/>
     </MemoryProvider>
     </SettingsProvider>
   );

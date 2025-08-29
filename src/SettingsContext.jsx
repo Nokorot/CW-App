@@ -1,13 +1,25 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import themes from "./themes.json"; // { light: {...}, dark: {...}, ... }
 
 const SettingsContext = createContext(null);
 
-const DEFAULTS = {
-  decimalSeparator: ",",      // "." or ","
-  fractionDigits: 4,          // 0..12
-  memBarMax: 100,
-};
+/** If your themes.json uses keys WITHOUT the "--" prefix (recommended),
+ *  this will add it when applying. If you *do* have leading "--", it uses them as-is. */
+function applyThemeVars(themeObj) {
+  if (!themeObj) return;
+  const root = document.documentElement;
+  for (const [key, val] of Object.entries(themeObj)) {
+    const cssVar = key.startsWith("--") ? key : `--${key}`;
+    root.style.setProperty(cssVar, String(val));
+  }
+}
 
+const DEFAULTS = {
+  decimalSeparator: ",", // "." or ","
+  fractionDigits: 4,     // 0..12
+  memBarMax: 100,
+  themeName: "light",    // <-- persisted theme selection
+};
 
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(() => {
@@ -19,13 +31,28 @@ export function SettingsProvider({ children }) {
     }
   });
 
+  // Persist settings
   useEffect(() => {
     try { localStorage.setItem("cw_settings", JSON.stringify(settings)); } catch {}
   }, [settings]);
 
+  // Apply theme variables whenever themeName changes (or on first mount)
+  useEffect(() => {
+    const theme = themes[settings.themeName] ?? themes[DEFAULTS.themeName];
+    applyThemeVars(theme);
+  }, [settings.themeName]);
+
   const update = (patch) => setSettings((s) => ({ ...s, ...patch }));
 
-  const api = useMemo(() => ({ settings, update }), [settings]);
+  const api = useMemo(() => ({
+    settings,
+    update,
+    // Theming helpers (optional convenience)
+    // themeName: settings.themeName,
+    // setThemeName: (name) => update({ themeName: name }),
+    availableThemes: Object.keys(themes),
+  }), [settings]);
+
   return <SettingsContext.Provider value={api}>{children}</SettingsContext.Provider>;
 }
 
@@ -42,9 +69,7 @@ export function useNumberFormat() {
 
   const fmt = (value) => {
     if (value == null || !Number.isFinite(value)) return "";
-    // fixed digits, then swap decimal if needed, and strip trailing zeros if fractionDigits==0
     let s = value.toFixed(fractionDigits);
-
     if (decimalSeparator === ",") s = s.replace(".", ",");
     return s;
   };
@@ -52,7 +77,6 @@ export function useNumberFormat() {
   // parse string that may contain "," or "." into a Number
   const toNum = (str) => {
     if (str == null || str === "") return NaN;
-
     const s = String(str).trim().replace(",", ".");
     const n = parseFloat(s);
     return Number.isFinite(n) ? n : NaN;
@@ -61,9 +85,8 @@ export function useNumberFormat() {
   return { fmt, toNum };
 }
 
-
+/** Persist any scalar value under a key */
 export function usePersistentState(key, initialValue) {
-  // load once from localStorage
   const [value, setValue] = useState(() => {
     try {
       const stored = localStorage.getItem(key);
@@ -72,16 +95,8 @@ export function usePersistentState(key, initialValue) {
       return initialValue;
     }
   });
-
-  // save whenever value changes
   useEffect(() => {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-    } catch {
-      /* ignore quota errors */
-    }
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
   }, [key, value]);
-
   return [value, setValue];
 }
-
