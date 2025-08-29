@@ -19,6 +19,7 @@ const DEFAULTS = {
   fractionDigits: 4,     // 0..12
   memBarMax: 100,
   themeName: "light",    // <-- persisted theme selection
+  memBarPosition: "top" // "top" | "bottom"
 };
 
 export function SettingsProvider({ children }) {

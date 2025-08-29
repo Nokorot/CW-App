@@ -1,6 +1,8 @@
 
+import {useSettings} from "../SettingsContext";
 import MemBar from "./MemBar";
 import TopBar from "./TopBar";
+
 
 function Layout({
       topBarWidget,
@@ -9,14 +11,19 @@ function Layout({
       children
   }) {
 
+  const {settings } = useSettings();
+
   return (
     <>
       <TopBar pageContext={pageContext} widget={topBarWidget}/>
-      {showMemBar && <MemBar />}
 
-      <div className={`page-container ${showMemBar ? "has-membar" : ""}`}>
+      {showMemBar && settings.memBarPosition === "top" && <MemBar />}
+
+      <div className={`page-container ${showMemBar ? "has-membar-"  + settings.memBarPosition : ""}`}>
         {children}
       </div>
+
+      {showMemBar && settings.memBarPosition === "bottom" && <MemBar />}
     </>
   );
 

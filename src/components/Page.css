@@ -15,10 +15,15 @@
 }
 
 /* If you want MemBar offset for specific pages: */
-.page-container.has-membar {
+.page-container.has-membar-top {
+  /* padding-top: calc(var(--membar-h)); */
   padding-top: calc(var(--topbar-h) + var(--membar-h));
 }
 
+.page-container.has-membar-bottom {
+  padding-bottom: calc(var(--membar-h));
+  padding-top: var(--topbar-h);
+}
 
 /* Sticky input/settings section */
 .page-container .sticky-block {
@@ -33,8 +38,12 @@
 }
 
 /* Sticky offset when MemBar is also shown */
-.page-container.has-membar .sticky-block {
+.page-container.has-membar-top .sticky-block {
   top: calc(var(--topbar-h) + var(--membar-h)); /* stay below TopBar + MemBar */
+}
+
+.page-container.has-membar-bottom .sticky-block {
+  top: calc(var(--topbar-h)); /* stay below TopBar + MemBar */
 }
 
 /* Scrollable content area */
@@ -46,7 +55,6 @@
   overscroll-behavior: contain;
   padding-top: 8px;
 }
-
 
 
 

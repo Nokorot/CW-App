@@ -189,6 +189,20 @@ export default function SettingsPage() {
             </div>
           </div>
 
+          {/* Mem bar position */}
+          <div className="settings-row">
+            <div className="settings-label">Memory bar position</div>
+            <div className="settings-control">
+              <select
+                value={settings.memBarPosition}
+                onChange={(e) => update({ memBarPosition: e.target.value })}
+              >
+                <option value="top">Top</option>
+                <option value="bottom">Bottom</option>
+              </select>
+            </div>
+          </div>
+
 
           {/* Reset */}
           <div className="settings-row">
@@ -207,6 +221,9 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
+
+
+
     </>
   );
 }

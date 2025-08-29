@@ -1,16 +1,18 @@
 import React from "react";
 import "./MemBar.css";
 import { useMemory } from "./MemoryContext";
-import {useNumberFormat} from "../SettingsContext";
+import {useNumberFormat, useSettings} from "../SettingsContext";
 
 export default function MemBar() {
   const { items, removeAt, clear, insert } = useMemory();
   const { fmt } = useNumberFormat();
 
+  const {settings} = useSettings();
+
   if (!items.length) return null;
 
   return (
-    <div className="mem-bar" role="region" aria-label="Memory bar">
+    <div className={`mem-bar ${settings.memBarPosition}`} role="region" aria-label="Memory bar">
       <div className="mem-scroll">
 
         {items.map((v, i) => (
