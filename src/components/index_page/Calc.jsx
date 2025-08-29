@@ -1,5 +1,4 @@
 import React, { useMemo, useRef, useState } from "react";
-import "./Lerp.css";
 import "./Calc.css";
 import {useNumberFormat} from "../../SettingsContext";
 

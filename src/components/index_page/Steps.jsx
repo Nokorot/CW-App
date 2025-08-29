@@ -1,13 +1,11 @@
 
-import React, { useEffect, useMemo, useState } from "react";
-import "./Lerp.css"
-
+import React, { useMemo } from "react";
 import InputPanel from "../InputPanel";
 import ValueList from "../ValueList";
 import {useNumberFormat, usePersistentState} from "../../SettingsContext";
 
 
-export default function StepsPC({pageContext}) {
+export default function StepsPC({}) {
   var states = [];
 
   const [x0, setX0] = usePersistentState("steps-x0", "2.5");
@@ -41,7 +39,7 @@ export default function StepsPC({pageContext}) {
 
 
   return (
-    <div className="lerp-page">
+    <>
         <InputPanel
           states={states}
             >
@@ -67,6 +65,6 @@ export default function StepsPC({pageContext}) {
         {!hasInvalidInput ? (
           <ValueList values = {values}/>
         ) : ""}
-    </div>
+    </>
   );
 }

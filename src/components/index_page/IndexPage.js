@@ -7,7 +7,8 @@ import { useState, useEffect } from "react";
 import PythagorasPage from "./Pythagoras";
 import CalculatorPage from "./Calc";
 import SettingsPage from "./SettingPage";
-import MemBar from "../MemBar";
+
+import "../Page.css";
 
 
 var viewStates = {
@@ -77,9 +78,6 @@ export function usePersistentViewState() {
 }
 
 
-
-
-
 function IndexPage() {
 
   const initialView = viewStates.calc;
@@ -105,12 +103,14 @@ function IndexPage() {
   if (viewState.pgc) {
 
     return (<Layout
-      pageContext={pageContext}
-      topBarWidget={topBarWidget} /* flash={flash} */>
+        pageContext={pageContext}
+        showMemBar={viewState.memBar}
+        topBarWidget={topBarWidget} /* flash={flash} */
+      >
+
       <viewState.pgc
             pageContext={pageContext}
       />
-      { viewState.memBar ? <MemBar/> : "" }
     </Layout>);
   } else {
     return (<div> Invalid Page state "{viewState.type}" </div> );

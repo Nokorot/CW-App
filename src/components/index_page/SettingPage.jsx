@@ -1,5 +1,4 @@
 import React from "react";
-import "./Lerp.css";
 import "./Settings.css";
 import {useSettings} from "../../SettingsContext";
 import {useMemory} from "../MemoryContext";
@@ -18,7 +17,6 @@ function Help({ id, children }) {
 export default function SettingsPage() {
   const { settings, update, availableThemes } = useSettings();
   const { clear } = useMemory();
-  // const { themeName, setThemeName } = useTheme();
 
   const sample = 1234.56789;
 
@@ -29,8 +27,10 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="lerp-page">
-      <div className="sticky-block">
+    <>
+
+      {/* Optional space below for notes/future settings */}
+
         <div className="settings-list">
           {/* Decimal separator */}
           <div className="settings-row">
@@ -207,10 +207,6 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Optional space below for notes/future settings */}
-      <div className="results-wrap" />
-    </div>
+    </>
   );
 }

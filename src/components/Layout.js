@@ -1,24 +1,23 @@
 
+import MemBar from "./MemBar";
 import TopBar from "./TopBar";
 
-function Layout({ topBarWidget, pageContext, children }) {
-  const title = "Construction Work App"
+function Layout({
+      topBarWidget,
+      pageContext,
+      showMemBar,
+      children
+  }) {
 
   return (
-    <div style={{ minHeight: '100vh' }}>
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" href="/favicon.ico" />
-    {/* <link rel="icon" href="/imgs/Logo_mini.svg" /> */}
-      {/* <link rel="stylesheet" href="/styles.css" /> */}
-      <title>{ title }</title>
-
+    <>
       <TopBar pageContext={pageContext} widget={topBarWidget}/>
+      {showMemBar && <MemBar />}
 
-      <div className="page-container">
+      <div className={`page-container ${showMemBar ? "has-membar" : ""}`}>
         {children}
       </div>
-    </div>
+    </>
   );
 
 }

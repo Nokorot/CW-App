@@ -1,18 +1,10 @@
-/* Keep the top controls visible */
-.sticky-block {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--surface);
-}
-
 
 /* Input panel; mobile-first */
 .input-panel {
   display: grid;
   grid-template-columns: 1fr; /* default to 1 column */
   gap: 6px;
+  background: var(--bg);
 }
 
 /* More columns on wider screens */

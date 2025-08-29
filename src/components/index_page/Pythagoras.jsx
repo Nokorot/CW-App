@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from "react";
-import "./Lerp.css";
+import React, { useMemo } from "react";
 import "./Pythagoras.css";
+import "../InputPanel.css";
 import {useNumberFormat, usePersistentState, useSettings} from "../../SettingsContext";
 import {useInputFiled} from "../InputPanel";
 import {useMemory} from "../MemoryContext";
@@ -176,7 +176,7 @@ export default function PythagorasPage() {
 
   // Simple triangle drawing (same as you had)
   return (
-    <div className="lerp-page">
+    <>
       <div className="sticky-block">
         <div className="input-panel">
           {fields.map((args) => {
@@ -200,21 +200,9 @@ export default function PythagorasPage() {
             </button>
           </label>
           </div>
-
-        {/* err ? (
-          <p className="user-err-msg">{err}</p>
-        ) : (
-          (view.a || view.b || view.c || view.alpha || view.beta) && (
-            <p className="user-msg">
-              {view.a && `a=${view.a}  `} {view.b && `b=${view.b}  `}
-              {view.c && `c=${view.c}  `} {view.alpha && `α=${view.alpha}°  `}
-              {view.beta && `β=${view.beta}°`}
-            </p>
-          )
-        ) */}
       </div>
 
-      <div className="results-wrap" role="region" aria-label="Triangle">
+      <div className="scrollable-content" role="region" aria-label="Triangle">
         <div className="tri-wrap">
           <svg className="tri-svg" viewBox="0 0 230 170" aria-label="Right triangle">
             <polyline points="180,120 180,100 200,100" fill="none" stroke="#bbb" strokeWidth="2" />
@@ -245,6 +233,6 @@ export default function PythagorasPage() {
           </svg>
         </div>
       </div>
-    </div>
+    </>
   );
 }

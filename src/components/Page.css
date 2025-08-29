@@ -1,0 +1,63 @@
+
+/* Common layout for all calculator pages */
+.page-container {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  /* Always push content below the TopBar */
+  padding-top: calc(var(--topbar-h) + 12px);
+}
+
+/* If you want MemBar offset for specific pages: */
+.page-container.has-membar {
+  padding-top: calc(var(--topbar-h) + var(--membar-h));
+}
+
+
+/* Sticky input/settings section */
+.page-container .sticky-block {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  border-bottom: 1px solid var(--surface);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  background: var(--bg);
+}
+
+/* Sticky offset when MemBar is also shown */
+.page-container.has-membar .sticky-block {
+  top: calc(var(--topbar-h) + var(--membar-h)); /* stay below TopBar + MemBar */
+}
+
+/* Scrollable content area */
+.page-container .scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  z-index: 9;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding-top: 8px;
+}
+
+
+
+
+
+/* Nice on wide screens: keep the content narrow but centered */
+@media (min-width: 1280px) {
+  .page-container {
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--page-surface-bg);
+    box-shadow: var(--page-surface-shadow);
+  }
+}
+
