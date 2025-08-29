@@ -14,14 +14,14 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 
   /* Make only the results scroll while header/inputs stay put */
-  height: calc(100dvh - var(--topbar-h));
+  height: calc(100dvh - var(--topbar-h) );
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 /* optional: give space so content doesn't hide behind mem-bar */
-.lerp-page { padding-bottom: 56px; }
+.lerp-page { padding-top: var(--membar-h); }
 
 /* Nice on wide screens: keep the content narrow but centered */
 @media (min-width: 1280px) {
