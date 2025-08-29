@@ -13,6 +13,10 @@ function Layout({
 
   const {settings } = useSettings();
 
+  if (settings.memBarPosition == "hidden")
+    showMemBar = false;
+
+
   return (
     <>
       <TopBar pageContext={pageContext} widget={topBarWidget}/>

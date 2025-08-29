@@ -199,6 +199,7 @@ export default function SettingsPage() {
               >
                 <option value="top">Top</option>
                 <option value="bottom">Bottom</option>
+                <option value="hidden">Hidden</option>
               </select>
             </div>
           </div>

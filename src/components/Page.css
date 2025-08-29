@@ -35,6 +35,7 @@
   border-bottom: 1px solid var(--surface);
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
   background: var(--bg);
+  top: calc(var(--topbar-h)); /* stay below TopBar + MemBar */
 }
 
 /* Sticky offset when MemBar is also shown */
