@@ -4,6 +4,7 @@ import "../InputPanel.css";
 import {useNumberFormat, usePersistentState, useSettings} from "../../SettingsContext";
 import {useInputFiled} from "../InputPanel";
 import {useMemory} from "../MemoryContext";
+import {useTranslation} from "react-i18next";
 
 const Field = ({
   label,
@@ -77,6 +78,8 @@ const Field = ({
  * Units: angles in DEGREES.
  */
 export default function PythagorasPage() {
+  const {t} = useTranslation();
+
   const [aStr, setA] = usePersistentState("pythgas-a", "");
   const [bStr, setB] = usePersistentState("pythgas-b", "");
   const [cStr, setC] = usePersistentState("pythgas-c", "");
@@ -123,7 +126,7 @@ export default function PythagorasPage() {
     }
 
     if (provided > 2) {
-      return { solved: {}, err: "Too many provided values!" };
+      return { solved: {}, err: t("pyth.err.too_many_values") };
     }
 
     if (Number.isFinite(alpha)) {
@@ -166,13 +169,12 @@ export default function PythagorasPage() {
 
 
   const fields = [
-    ["Side A", view.a, setA, filled.a],
-    ["Side B", view.b, setB, filled.b],
-    ["Side C", view.c, setC, filled.c],
-    ["Angle α (deg)", view.alpha, setAlpha, filled.alpha],
-    ["Angle β (deg)", view.beta, setBeta, filled.beta],
+    [t("pyth.a"), view.a, setA, filled.a],
+    [t("pyth.b"), view.b, setB, filled.b],
+    [t("pyth.c"), view.c, setC, filled.c],
+    [t("pyth.alpha"), view.alpha, setAlpha, filled.alpha],
+    [t("pyth.beta"), view.beta, setBeta, filled.beta],
   ];
-
 
   // Simple triangle drawing (same as you had)
   return (

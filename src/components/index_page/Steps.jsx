@@ -3,17 +3,19 @@ import React, { useMemo } from "react";
 import InputPanel from "../InputPanel";
 import ValueList from "../ValueList";
 import {useNumberFormat, usePersistentState} from "../../SettingsContext";
+import {useTranslation} from "react-i18next";
 
 
 export default function StepsPC({}) {
-  var states = [];
+  const {t} = useTranslation();
 
+  var states = [];
   const [x0, setX0] = usePersistentState("steps-x0", "2.5");
-  states.push([x0, setX0, "Start" ]);
+  states.push([x0, setX0, t("steps.x0") ]);
   const [x1, setX1] = usePersistentState("steps-x1", "9.25");
-  states.push([x1, setX1, "Spacing" ]);
+  states.push([x1, setX1, t("steps.x1") ]);
   const [steps, setSteps] = usePersistentState("steps-steps", "123");
-  states.push([steps, setSteps, "Steps" ]);
+  states.push([steps, setSteps, t("steps.steps") ]);
 
   const {toNum} = useNumberFormat();
 

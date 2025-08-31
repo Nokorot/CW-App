@@ -123,7 +123,7 @@
 }
 
 /* Mobile: stack label over control if space is tight */
-@media (max-width: 520px) {
+@media (max-width: 400px) {
   .settings-row {
     grid-template-columns: 1fr;
     align-items: stretch;

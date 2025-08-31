@@ -1,0 +1,95 @@
+{
+  app: {
+    title: "CW-Kalkulator",
+  },
+  nav: {
+    calc: "Kalkulator",
+    lerp: "Fordel",
+    steps: "Multipliser",
+    pyth: "Trekant Kalkolator",
+    settings: "Innstillinger",
+  },
+  lerp: {
+    header: "Lineær fordeling",
+    x0: "Start",
+    x1: "Slutt",
+    steps: "Steg",
+  },
+  steps: {
+    header: "Lineær fordeling",
+    x0: "Start",
+    x1: "Avstand",
+    steps: "Steg",
+  },
+  pyth: {
+    a: "Side A",
+    b: "Side B",
+    c: "Side C",
+    alpha: "Vinkel α (grader)",
+    beta: "Vinkel β (grader)",
+    err: {
+      too_many_values: "For mange oppgitte verdier!",
+    },
+  },
+  calc: {
+    title: "Kalkulator",
+    expression: "Uttrykk",
+    inp_placeholder: "Skriv eller trykk…",
+    err: {
+      invalid_char: "Ugyldig tegn",
+      invalid_token: "Ugyldig symbol",
+      invalid_op: "Ugyldig operasjon",
+      syntax_err: "Syntaksfeil",
+      miss_parentheses: "Manglende parenteser",
+      div_zero: "Divisjon med null",
+    },
+  },
+  settings: {
+    title: "Innstillinger",
+    language: {
+      label: "Språk",
+      help: "Velg språk",
+    },
+    decimalSep: "Desimaltegn",
+    "help.decimalSep": "Velg tegnet som skiller heltalls- og desimaldelen.",
+    digits: "Desimalplasser",
+    "help.digits": "Antall sifre som skal vises etter desimaltegnet.",
+    preview: "Forhåndsvisning",
+    "help.preview": "Forhåndsvisning av hvordan tall vises med dine nåværende innstillinger.",
+    memBar: {
+      "length.label": "Lengde på minnelinjen",
+      "length.help": "Maksimalt antall lagrede verdier som vises og lagres i minnelinjen. Eldre verdier fjernes når grensen nås.",
+      "position.label": "Posisjon for minnelinjen",
+      "position.top": "Topp",
+      "position.bottom": "Bunn",
+      "position.hidden": "Skjult",
+    },
+    clearMemory: {
+      label: "Tøm minne",
+      help: "Fjern alle lagrede verdier fra minnelinjen. Denne handlingen kan ikke angres.",
+      confirm: "Tøm alle minneverdier?",
+      button: "Tøm minne",
+    },
+    theme: {
+      label: "Farge Tema",
+      help: "Velg et app-tema som passer din preferanse.",
+      "option.light": "Lyst",
+      "option.dark": "Mørkt",
+      "option.blueprint": "Blåkopi",
+      "option.default": "Vanlig",
+    },
+    reset: {
+      label: "Tilbakestill",
+      help: "Gjenopprett standardinnstillingene.",
+      button: "Tilbakestill til standard",
+    },
+  },
+  actions: {
+    clear: "Tøm",
+    save: "Lagre",
+    close: "Lukk",
+  },
+  common: {
+    moreInfo: "Mer informasjon",
+  },
+}

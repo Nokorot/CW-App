@@ -1,0 +1,94 @@
+{
+  app: { title: "CW Calculator" },
+  nav: {
+    calc: "Calculator",
+    lerp: "Distribute", // "Linear spacing",
+    steps: "Multiplies",
+    pyth: "Triangle Calc",
+    settings: "Settings",
+  },
+  // Pages
+  lerp: {
+    header: "Linear spacing",
+    x0: "Start",
+    x1: "End",
+    steps: "Steps / Samples"
+  },
+  steps: {
+    header: "Linear spacing",
+    x0: "Start",
+    x1: "Spacing",
+    steps: "Steps / Samples"
+  },
+  pyth: {
+    a: "Side a",
+    b: "Side b",
+    c: "Side c",
+    alpha: "Angle α (deg)",
+    beta: "Angle β (deg)",
+    err: {
+        "too_many_values": "Too many provided values!",
+    },
+  },
+  calc: {
+    title: "Calculator",
+    expression: "Expression",
+    inp_placeholder: "Type or tap…",
+    err: {
+        "invalid_char": "Invalid character",
+        "invalid_token": "Invalid token",
+        "invalid_op": "Invalid operation",
+        "syntax_err": "Syntax error",
+        "miss_parentheses": "Mismatched parentheses",
+        "div_zero": "Division by zero",
+    }
+  },
+  settings: {
+    title: "Settings",
+    language: {
+        "label": "Language",
+        "help": "Choose a language",
+    },
+    "decimalSep": "Decimal separator",
+    "help.decimalSep": "Choose the character used to separate integer and fractional parts.",
+    "digits": "Fraction digits",
+    "help.digits": "Number of digits to show after the decimal separator.",
+    "preview": "Preview",
+    "help.preview": "Preview of how numbers will be formatted using your current settings.",
+    "memBar": {
+      "length.label": "Memory bar length",
+      "length.help": "The maximum number of saved values shown and stored in the memory bar. Older values are dropped when the limit is reached.",
+      "position.label": "Memory bar position",
+      "position.top": "Top",
+      "position.bottom": "Bottom",
+      "position.hidden": "Hidden",
+    },
+    "clearMemory": {
+      "label": "Clear memory",
+      "help": "Remove all saved values from the memory bar. This action cannot be undone.",
+      "confirm": "Clear all memory values?",
+      "button": "Clear memory",
+    },
+    "theme": {
+      "label": "Theme",
+      "help": "Select an app theme fitting your preference.",
+      "option.light": "Light",
+      "option.dark": "Dark",
+      "option.blueprint": "Blueprint",
+      "option.default": "Default",
+    },
+    "reset": {
+      "label": "Reset",
+      "help": "Restore the default settings.",
+      "button": "Reset to defaults",
+    },
+  },
+  actions: {
+      clear: "Clear",
+      save: "Save",
+      close: "Close"
+  },
+  "common": {
+      "moreInfo": "More info",
+  },
+}

@@ -1,12 +1,10 @@
 import React, { useMemo, useRef, useState } from "react";
 import "./Calc.css";
 import {useNumberFormat} from "../../SettingsContext";
+import {useTranslation} from "react-i18next";
 
 const DEL_sym = "⌫";
-const div_symbol = "÷";
-
-
-// const div_symbol = "/";
+const div_symbol = "÷"; // "/";
 
 /**
  * Very small, safe infix evaluator (+ - * / and parentheses)
@@ -15,7 +13,8 @@ const div_symbol = "÷";
  * - RPN evaluation
  * Handles unary minus, decimals, and basic errors.
  */
-function evaluateExpression(expr) {
+function evaluateExpression(expr, t) {
+
   if (!expr || !expr.trim()) return { ok: true, value: "" };
 
   // 1) Tokenize
@@ -24,11 +23,11 @@ function evaluateExpression(expr) {
   const re = /\s*([0-9]*\.?[0-9]+|\(|\)|\+|-|\*|\/|\^)\s*/g;
   let m, idx = 0;
   while ((m = re.exec(s))) {
-    if (m.index !== idx) return { ok: false, err: "Invalid character" };
+    if (m.index !== idx) return { ok: false, err: t("calc.err.invalid_char") };
     tokens.push(m[1]);
     idx = re.lastIndex;
   }
-  if (idx !== s.length) return { ok: false, err: "Invalid character" };
+  if (idx !== s.length) return { ok: false, err: t("calc.err.invalid_char") };
 
   // 2) Handle unary minus by converting to (0 - x)
   const fixed = [];
@@ -62,15 +61,15 @@ function evaluateExpression(expr) {
       op.push(t);
     } else if (t === ")") {
       while (op.length && op[op.length - 1] !== "(") out.push(op.pop());
-      if (!op.length) return { ok: false, err: "Mismatched parentheses" };
+      if (!op.length) return { ok: false, err: t("calc.err.miss_parentheses") };
       op.pop(); // remove '('
     } else {
-      return { ok: false, err: "Invalid token" };
+      return { ok: false, err: t("calc.err.invalid_token") };
     }
   }
   while (op.length) {
     const top = op.pop();
-    if (top === "(") return { ok: false, err: "Mismatched parentheses" };
+    if (top === "(") return { ok: false, err: t("calc.err.miss_parentheses") };
     out.push(top);
   }
 
@@ -81,22 +80,22 @@ function evaluateExpression(expr) {
       st.push(parseFloat(t));
     } else {
       const b = st.pop(), a = st.pop();
-      if (a == null || b == null) return { ok: false, err: "Syntax error" };
+      if (a == null || b == null) return { ok: false, err: t("calc.err.syntax_err") };
       let v;
       if (t === "+") v = a + b;
       else if (t === "-") v = a - b;
       else if (t === "*") v = a * b;
       else if (t === "^") v = a ** b;
       else if (t === "/") {
-        if (b === 0) return { ok: false, err: "Division by zero" };
+        if (b === 0) return { ok: false, err:  t("calc.err.div_zero")};
         v = a / b;
       } else {
-        return { ok: false, err: "Invalid op" };
+        return { ok: false, err:  t("calc.err.invalid_op")};
       }
       st.push(v);
     }
   }
-  if (st.length !== 1) return { ok: false, err: "Syntax error" };
+  if (st.length !== 1) return { ok: false, err: t("calc.err.syntax_err") };
 
   const val = st[0];
   // prettify a bit
@@ -113,9 +112,11 @@ export default function CalculatorPage() {
   const [expr, setExpr] = useState("");
   const inputRef = useRef(null);
 
-  const result = useMemo(() => evaluateExpression(expr), [expr]);
+  const {t} = useTranslation();
 
-  const {fmt, toNum} = useNumberFormat();
+  const result = useMemo(() => evaluateExpression(expr, t), [expr]);
+
+  const {fmt} = useNumberFormat();
 
   // Only allow digits, operators, parentheses, dot and spaces in manual typing
   const onBeforeInput = (e) => {
@@ -186,7 +187,7 @@ export default function CalculatorPage() {
             className="calc-expr"
             type="text"
             inputMode="none"
-            placeholder="Type or tap…"
+            placeholder={t("calc.inp_placeholder")}
             value={expr}
             onChange={(e) => setExpr(e.target.value)}
             onKeyDown={onKeyDown}

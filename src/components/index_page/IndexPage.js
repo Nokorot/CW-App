@@ -9,49 +9,58 @@ import CalculatorPage from "./Calc";
 import SettingsPage from "./SettingPage";
 
 import "../Page.css";
+import {useTranslation} from "react-i18next";
 
 
-var viewStates = {
-  calc: {
-    type: 'calc',
-    pgc: CalculatorPage,
-    title: "Calculator",
-    topBarMenu: true,
-    memBar: true,
-  },
-  lerp: {
-    type: 'lerp',
-    pgc: LerpPC,
-    title: "Distribute",
-    topBarMenu: true,
-    memBar: true,
-  },
-  steps: {
-    type: 'steps',
-    pgc: StepsPC,
-    title: "Multiples",
-    topBarMenu: true,
-    memBar: true,
-  },
-  pythgas: {
-    type: 'pythgas',
-    pgc: PythagorasPage,
-    title: "Diagonal",
-    topBarMenu: true,
-    memBar: true,
-  },
+function useViewStates() {
+  const {t} = useTranslation();
 
-  settings: {
-    type: 'settings',
-    pgc: SettingsPage,
-    title: "Settings",
-    topBarMenu: true,
-  },
+  var viewStates = {
+    calc: {
+      type: 'calc',
+      pgc: CalculatorPage,
+      title: t("nav.calc"),
+      topBarMenu: true,
+      memBar: true,
+    },
+    lerp: {
+      type: 'lerp',
+      pgc: LerpPC,
+      title: t("nav.lerp"),
+      topBarMenu: true,
+      memBar: true,
+    },
+    steps: {
+      type: 'steps',
+      pgc: StepsPC,
+      title: t("nav.steps"),
+      topBarMenu: true,
+      memBar: true,
+    },
+    pyth: {
+      type: 'pyth',
+      pgc: PythagorasPage,
+      title: t("nav.pyth"),
+      topBarMenu: true,
+      memBar: true,
+    },
+
+    settings: {
+      type: 'settings',
+      pgc: SettingsPage,
+      title: t("nav.settings"),
+      topBarMenu: true,
+    },
+  }
+
+  return {viewStates};
 }
 
 
 export function usePersistentViewState() {
   const key = "indexpage-veiwstate";
+
+  const {viewStates} = useViewStates();
   const initialValue = viewStates.calc;
 
   // load once from localStorage
@@ -80,6 +89,7 @@ export function usePersistentViewState() {
 
 function IndexPage() {
 
+  const {viewStates} = useViewStates();
   const initialView = viewStates.calc;
 
   const [viewState, setViewState] = usePersistentViewState(initialView);

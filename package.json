@@ -7,12 +7,17 @@
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "i18next": "^25.4.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-i18next": "^15.7.3",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "prestart": "node scripts/build-locales.mjs",
+    "prebuild": "node scripts/build-locales.mjs",
+    "locales:build": "node scripts/build-locales.mjs",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -35,5 +40,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-react-app": "^7.0.1",
+    "json5": "^2.2.3"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignore": [
+        "typescript"
+      ]
+    }
   }
 }

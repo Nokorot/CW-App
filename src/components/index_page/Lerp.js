@@ -1,19 +1,21 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import "./Lerp.css"
 
 import InputPanel from "../InputPanel";
 import ValueList from "../ValueList";
 import {useNumberFormat, usePersistentState} from "../../SettingsContext";
+import {useTranslation} from "react-i18next";
 
 export default function LerpPC({ }) {
-  var states = [];
+  const {t} = useTranslation();
 
+  var states = [];
   const [x0, setX0] = usePersistentState("lerp-x0", "2.5");
-  states.push([x0, setX0, "Start" ]);
+  states.push([x0, setX0, t("lerp.x0") ]);
   const [x1, setX1] = usePersistentState("lerp-x1", "9.25");
-  states.push([x1, setX1, "End" ]);
+  states.push([x1, setX1, t("lerp.x1") ]);
   const [steps, setSteps] = usePersistentState("lerp-steps", "5");
-  states.push([steps, setSteps, "Steps" ]);
+  states.push([steps, setSteps, t("lerp.steps") ]);
 
   const {toNum} = useNumberFormat();
 
@@ -46,20 +48,6 @@ export default function LerpPC({ }) {
         <InputPanel
           states={states}
             >
-
-          {/* hasInvalidInput ? (
-            <p className="user-err-msg">
-              Enter valid numbers. “Steps” should be an integer ≥ 1.
-            </p>
-          ) : (
-            <>
-              <p className="user-msg">
-                Generated {values.length} value{values.length === 1 ? "" : "s"} from x0 to x1 (inclusive)
-                {lastPicked != null ? ` • last picked: ${fmt(lastPicked)}` : ""}
-                .
-              </p>
-            </>
-          ) */}
         </InputPanel>
 
         {!hasInvalidInput ? (

@@ -1,12 +1,22 @@
 import React from "react";
 import "./Settings.css";
-import {useSettings} from "../../SettingsContext";
-import {useMemory} from "../MemoryContext";
+import { useSettings } from "../../SettingsContext";
+import { useMemory } from "../MemoryContext";
+import { useTranslation } from "react-i18next";
+import i18n, {ensureLanguage, languages} from "../../i18n";
 
 function Help({ id, children }) {
+  const { t } = useTranslation();
   return (
     <span className="help">
-      <span className="help__icon" tabIndex={0} aria-describedby={id} aria-label="More info">?</span>
+      <span
+        className="help__icon"
+        tabIndex={0}
+        aria-describedby={id}
+        aria-label={t("common.moreInfo")}
+      >
+        ?
+      </span>
       <span role="tooltip" id={id} className="help__bubble">
         {children}
       </span>
@@ -15,6 +25,7 @@ function Help({ id, children }) {
 }
 
 export default function SettingsPage() {
+  const { t } = useTranslation();
   const { settings, update, availableThemes } = useSettings();
   const { clear } = useMemory();
 
@@ -26,205 +37,204 @@ export default function SettingsPage() {
     return s;
   };
 
+  const onLangChange = async (e) => {
+    const lng = e.target.value;
+    await ensureLanguage(lng);
+    localStorage.setItem("lng", lng);
+  };
+
+
   return (
     <>
-
-      {/* Optional space below for notes/future settings */}
-
-        <div className="settings-list">
-          {/* Decimal separator */}
-          <div className="settings-row">
-            <div className="settings-label">
-              <span>Decimal separator</span>
-              <Help id="help-sep">
-                Choose whether decimals show with a period (.) or a comma (,). Parsing accepts both.
-              </Help>
-            </div>
-            <div className="settings-control">
-              <label className="choice">
-                <input
-                  type="radio"
-                  name="sep"
-                  value="."
-                  checked={settings.decimalSeparator === "."}
-                  onChange={() => update({ decimalSeparator: "." })}
-                />
-                <span>.</span>
-              </label>
-              <label className="choice">
-                <input
-                  type="radio"
-                  name="sep"
-                  value=","
-                  checked={settings.decimalSeparator === ","}
-                  onChange={() => update({ decimalSeparator: "," })}
-                />
-                <span>,</span>
-              </label>
-            </div>
+      <div className="settings-list">
+        {/* Choose Language */}
+        <div className="settings-row">
+          <div className="settings-label">
+            <span>{t("settings.language.label")}</span>
+            <Help id="help-theme">{t("settings.language.help")}</Help>
           </div>
+          <div className="settings-control">
+            <select value={i18n.language} onChange={onLangChange} aria-label={"settings.language.label"}>
+              {languages.map(l => (
+                <option key={l.code} value={l.code}>{l.label}</option>
+              ))}
+            </select>
 
-          {/* Fraction digits */}
-          <div className="settings-row">
-            <div className="settings-label">
-              <span>Digits after separator</span>
-              <Help id="help-digits">
-                Number of digits to display after the decimal separator (0–12). This affects display only.
-              </Help>
-            </div>
-            <div className="settings-control">
-              <input
-                type="number"
-                min={0}
-                max={12}
-                step={1}
-                value={settings.fractionDigits}
-                onChange={(e) => {
-                  const raw = e.target.value;
-
-                  // Allow empty entry
-                  if (raw === "") {
-                    update({ fractionDigits: "" });
-                    return;
-                  }
-                  const n = Math.max(0, Math.min(12, Math.floor(+raw)));
-                  update({ fractionDigits: n });
-                }}
-                onBlur={(e) => {
-                  if (e.target.value === "") {
-                    // if user left it empty, reset to a sensible default
-                    update({ fractionDigits: 0 });
-                  }
-                }}
-                className="num"
-              />
-            </div>
-          </div>
-
-          {/* Preview */}
-          <div className="settings-row">
-            <div className="settings-label">
-              <span>Preview</span>
-              <Help id="help-preview">
-                Example of how numbers will look with your current settings.
-              </Help>
-            </div>
-            <div className="settings-control">
-              <div className="preview">{fmtPreview()}</div>
-            </div>
-          </div>
-
-          {/* MemBar length */}
-          <div className="settings-row">
-            <div className="settings-label">
-              <span>Memory bar length</span>
-              <Help id="help-membar">
-                The maximum number of saved values shown and stored in the memory bar.
-                Older values are dropped when the limit is reached.
-              </Help>
-            </div>
-            <div className="settings-control">
-              <input
-                type="number"
-                min={1}
-                max={500}
-                step={1}
-                className="num"
-                value={settings.memBarMax === "" ? "" : settings.memBarMax}
-                onChange={(e) => {
-                  const raw = e.target.value;
-                  if (raw === "") return update({ memBarMax: "" });   // let it be empty while editing
-                  const n = Math.max(1, Math.min(500, Math.floor(+raw)));
-                  update({ memBarMax: n });
-                }}
-                onBlur={(e) => {
-                  if (e.target.value === "") update({ memBarMax: 50 }); // default if left empty
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Clear memory */}
-          <div className="settings-row">
-            <div className="settings-label">
-              <span>Clear memory</span>
-              <Help id="help-clear">
-                Remove all saved values from the memory bar. This action cannot be undone.
-              </Help>
-            </div>
-            <div className="settings-control">
-              <button
-                type="button"
-                className="btn"
-                onClick={() => {
-                  if (window.confirm("Clear all memory values?")) clear();
-                }}
-              >
-                Clear memory
-              </button>
-            </div>
-          </div>
-
-          {/* Choose theme */}
-          <div className="settings-row">
-            <div className="settings-label">
-              <span>Theme</span>
-              <Help id="help-clear">
-                Select an app theme fitting your preference.
-              </Help>
-            </div>
-            <div className="settings-control">
-              <select
-                value={settings.themeName}
-                onChange={(e) => update({themeName: e.target.value})}
-              >
-                {availableThemes.map((key) => {
-                  return (<option key={key} value={key}>{key}</option>)
-                })}
-
-                {/* <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="blueprint">Blueprint</option> */}
-              </select>
-            </div>
-          </div>
-
-          {/* Mem bar position */}
-          <div className="settings-row">
-            <div className="settings-label">Memory bar position</div>
-            <div className="settings-control">
-              <select
-                value={settings.memBarPosition}
-                onChange={(e) => update({ memBarPosition: e.target.value })}
-              >
-                <option value="top">Top</option>
-                <option value="bottom">Bottom</option>
-                <option value="hidden">Hidden</option>
-              </select>
-            </div>
-          </div>
-
-
-          {/* Reset */}
-          <div className="settings-row">
-            <div className="settings-label">
-              <span>Reset</span>
-              <Help id="help-reset">Restore the default settings.</Help>
-            </div>
-            <div className="settings-control">
-              <button
-                type="button"
-                className="btn"
-                onClick={() => update({ decimalSeparator: ".", fractionDigits: 4 })}
-              >
-                Reset to defaults
-              </button>
-            </div>
+              {/* availableThemes.map((key) => (
+              )) */}
           </div>
         </div>
 
 
+        {/* Decimal separator */}
+        <div className="settings-row">
+          <div className="settings-label">
+            <span>{t("settings.decimalSep")}</span>
+            <Help id="help-sep">{t("settings.help.decimalSep")}</Help>
+          </div>
+          <div className="settings-control">
+            <label className="choice">
+              <input
+                type="radio"
+                name="sep"
+                value="."
+                checked={settings.decimalSeparator === "."}
+                onChange={() => update({ decimalSeparator: "." })}
+              />
+              <span>.</span>
+            </label>
+            <label className="choice">
+              <input
+                type="radio"
+                name="sep"
+                value=","
+                checked={settings.decimalSeparator === ","}
+                onChange={() => update({ decimalSeparator: "," })}
+              />
+              <span>,</span>
+            </label>
+          </div>
+        </div>
 
+        {/* Fraction digits */}
+        <div className="settings-row">
+          <div className="settings-label">
+            <span>{t("settings.digits")}</span>
+            <Help id="help-digits">{t("settings.help.digits")}</Help>
+          </div>
+          <div className="settings-control">
+            <input
+              type="number"
+              min={0}
+              max={12}
+              step={1}
+              value={settings.fractionDigits}
+              onChange={(e) => {
+                const raw = e.target.value;
+                if (raw === "") return update({ fractionDigits: "" });
+                const n = Math.max(0, Math.min(12, Math.floor(+raw)));
+                update({ fractionDigits: n });
+              }}
+              onBlur={(e) => {
+                if (e.target.value === "") update({ fractionDigits: 0 });
+              }}
+              className="num"
+            />
+          </div>
+        </div>
+
+        {/* Preview */}
+        <div className="settings-row">
+          <div className="settings-label">
+            <span>{t("settings.preview")}</span>
+            <Help id="help-preview">{t("settings.help.preview")}</Help>
+          </div>
+          <div className="settings-control">
+            <div className="preview">{fmtPreview()}</div>
+          </div>
+        </div>
+
+        {/* Memory bar length */}
+        <div className="settings-row">
+          <div className="settings-label">
+            <span>{t("settings.memBar.length.label")}</span>
+            <Help id="help-membar">{t("settings.memBar.length.help")}</Help>
+          </div>
+          <div className="settings-control">
+            <input
+              type="number"
+              min={1}
+              max={500}
+              step={1}
+              className="num"
+              value={settings.memBarMax === "" ? "" : settings.memBarMax}
+              onChange={(e) => {
+                const raw = e.target.value;
+                if (raw === "") return update({ memBarMax: "" });
+                const n = Math.max(1, Math.min(500, Math.floor(+raw)));
+                update({ memBarMax: n });
+              }}
+              onBlur={(e) => {
+                if (e.target.value === "") update({ memBarMax: 50 });
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Clear memory */}
+        <div className="settings-row">
+          <div className="settings-label">
+            <span>{t("settings.clearMemory.label")}</span>
+            <Help id="help-clear">{t("settings.clearMemory.help")}</Help>
+          </div>
+          <div className="settings-control">
+            <button
+              type="button"
+              className="btn"
+              onClick={() => {
+                if (window.confirm(t("settings.clearMemory.confirm"))) clear();
+              }}
+            >
+              {t("settings.clearMemory.button")}
+            </button>
+          </div>
+        </div>
+
+        {/* Choose theme */}
+        <div className="settings-row">
+          <div className="settings-label">
+            <span>{t("settings.theme.label")}</span>
+            <Help id="help-theme">{t("settings.theme.help")}</Help>
+          </div>
+          <div className="settings-control">
+            <select
+              value={settings.themeName}
+              onChange={(e) => update({ themeName: e.target.value })}
+            >
+              {availableThemes.map((key) => (
+                <option key={key} value={key}>
+                  {/* Try translate "settings.theme.option.<key>" else show the key */}
+                  {t(`settings.theme.option.${key}`, { defaultValue: key })}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Memory bar position */}
+        <div className="settings-row">
+          <div className="settings-label">
+            {t("settings.memBar.position.label")}
+          </div>
+          <div className="settings-control">
+            <select
+              value={settings.memBarPosition}
+              onChange={(e) => update({ memBarPosition: e.target.value })}
+            >
+              <option value="top">{t("settings.memBar.position.top")}</option>
+              <option value="bottom">{t("settings.memBar.position.bottom")}</option>
+              <option value="hidden">{t("settings.memBar.position.hidden")}</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Reset */}
+        <div className="settings-row">
+          <div className="settings-label">
+            <span>{t("settings.reset.label")}</span>
+            <Help id="help-reset">{t("settings.reset.help")}</Help>
+          </div>
+          <div className="settings-control">
+            <button
+              type="button"
+              className="btn"
+              onClick={() => update({ decimalSeparator: ".", fractionDigits: 4 })}
+            >
+              {t("settings.reset.button")}
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

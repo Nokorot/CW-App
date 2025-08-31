@@ -5,25 +5,15 @@ import "./TopBar.css";
 
 
 const TopBar = ({ pageContext, widget }) => {
-  // const { user, isAuthenticated, logout } = useAuth0();
-  // const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  // const [menuOpen, setMenuOpen] = useState(false);
-  // const menuRef = useRef();
-
-
   const menuStateClosed = { type: 'closed' };
 
   const optionsRef = useRef();
   const menuStateOptions = { type: 'options', ref: optionsRef };
 
-  const userMenuRef = useRef();
-  const menuStateUserMenu = { type: 'user', ref: userMenuRef };
-
   const [menuState, setMenuState] = useState(menuStateClosed);
 
   const closeMenu = useCallback(() => setMenuState(menuStateClosed), []);
   const openOptions  = useCallback(() => setMenuState(menuStateOptions), []);
-  const openUserMenu  = useCallback(() => setMenuState(menuStateUserMenu), []);
 
   // Close Options on Escape or when clicking outside
   useEffect(() => {

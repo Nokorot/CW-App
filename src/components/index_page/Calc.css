@@ -72,12 +72,14 @@
 }
 .pad-key--equals:hover { background: var(--calc-pad-equals-hover); }
 .pad-key--clear {
+  color: var(--calc-pad-clear--fg);
   background: var(--calc-pad-clear--bg);
   border-color: var(--calc-pad-clear--border);
 }
 .pad-key--del   {
-  background: var(--calc-pad-clear--bg);
-  border-color: var(--calc-pad-clear--border);
+  color: var(--calc-pad-del--fg);
+  background: var(--calc-pad-del--bg);
+  border-color: var(--calc-pad-del--border);
 }
 
 /* Make the keypad comfy on small screens */
